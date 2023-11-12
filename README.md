@@ -1,6 +1,6 @@
 # sponsorify
 
-A new Flutter project.
+Aplikasi mobile penghubung antara event organizer dan sponsorship. 
 
 ## Getting Started
 
