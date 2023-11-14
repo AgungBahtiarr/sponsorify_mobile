@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sponsorify/routers.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const Sponsorify());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class Sponsorify extends StatelessWidget {
+  const Sponsorify({super.key});
 
   @override
   Widget build(BuildContext context) {

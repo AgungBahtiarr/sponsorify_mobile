@@ -12,7 +12,7 @@ class Routers extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/register',
+      initialRoute: '/dashboard',
       routes: {
         '/register': (context) => const Register(),
         '/login': (context) => const Login(),

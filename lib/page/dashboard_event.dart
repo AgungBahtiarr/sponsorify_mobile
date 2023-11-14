@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,95 +17,31 @@ class DashboardEvent extends StatelessWidget {
             children: [
               const TopSection(),
               Positioned(
-                top: 400,
+                top: 300,
                 child: Container(
-                  height: 90,
-                  width: 328,
-                  decoration: const BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 4,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF372E1D),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 50,
-                            height: 50,
-                          ),
-                          Text(
-                            "Food",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.w500),
+                    height: 90,
+                    width: 328,
+                    decoration: const BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0x3F000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 4),
+                            spreadRadius: 0,
                           )
                         ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF372E1D),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 50,
-                            height: 50,
-                          ),
-                          Text(
-                            "Food",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF372E1D),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 50,
-                            height: 50,
-                          ),
-                          Text(
-                            "Food",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF372E1D),
-                                borderRadius: BorderRadius.circular(10)),
-                            width: 50,
-                            height: 50,
-                          ),
-                          Text(
-                            "Food",
-                            style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    child: ListView.builder(
+                      itemCount: 5,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SponsorCategory(),
+                        );
+                      },
+                    )),
               ),
             ],
           ),
@@ -112,85 +50,144 @@ class DashboardEvent extends StatelessWidget {
             child: Text(
               "Recomended",
               style: GoogleFonts.poppins(
-                  fontSize: 15, fontWeight: FontWeight.w600),
+                  fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 34),
-            child: Column(
-              children: [
-                Container(
-                  width: 140,
-                  // height: 154,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 14,
-                          offset: Offset(0, 4),
-                          spreadRadius: -4,
-                        )
-                      ]),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 80,
-                            width: 127,
-                            decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                                color: Colors.black26),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Nescafe",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                "Category",
-                                style: GoogleFonts.poppins(
-                                    fontSize: 10, fontWeight: FontWeight.w500),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 4, bottom: 10),
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 15,
-                                      // width: 46,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(),
-                                          onPressed: () {},
-                                          child: Text(
-                                            "Detail",
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 7),
-                                          )),
-                                    )
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ]),
-                )
-              ],
+          SizedBox(
+            height: 500,
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 32),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: SponsorCard(),
+                );
+              },
             ),
           )
         ]),
+      ),
+    );
+  }
+}
+
+class SponsorCategory extends StatelessWidget {
+  const SponsorCategory({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: const Color(0xFF372E1D),
+              borderRadius: BorderRadius.circular(10)),
+          width: 50,
+          height: 50,
+        ),
+        Text(
+          "Food",
+          style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w500),
+        )
+      ],
+    );
+  }
+}
+
+class SponsorCard extends StatelessWidget {
+  const SponsorCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 396,
+      height: 100,
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 16,
+              offset: Offset(0, 4),
+              spreadRadius: -1,
+            )
+          ]),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(6),
+            child: Container(
+              width: 124,
+              height: 88,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: Colors.black12,
+                // image: DecorationImage(image: NetworkImage(''))
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 18, right: 42),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Floridina",
+                  style: GoogleFonts.poppins(
+                      fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "Food",
+                  style: GoogleFonts.poppins(
+                      fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  width: 68,
+                  height: 22,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                          backgroundColor: const Color(0xFF77E0B5)),
+                      onPressed: () {},
+                      child: Text(
+                        'Detail',
+                        style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500),
+                      )),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 12, right: 16),
+            child: Container(
+              width: 32,
+              height: 32,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle, color: Color(0xff604038)),
+              child: IconButton(
+                  padding: EdgeInsets.zero,
+                  color: Colors.white,
+                  onPressed: () {},
+                  icon: Icon(Icons.bookmark_add_outlined)),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -204,7 +201,7 @@ class TopSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 445,
+      height: 345,
       decoration: const BoxDecoration(
           color: Color(0xFF37271D),
           borderRadius: BorderRadius.only(
