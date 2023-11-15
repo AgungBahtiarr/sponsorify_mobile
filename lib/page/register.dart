@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sponsorify/data/datasource/remote_register.dart';
+import 'package:sponsorify/data/model/register.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -9,6 +11,33 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  Data? user;
+
+  int? statusCode;
+  Future getResponse(user) async {
+    var res = await RemoteRegister().register(user);
+    setState(() {
+      statusCode = res;
+    });
+  }
+
+  bool secure = true;
+
+  String fullName = '';
+  String email = '';
+  String role = '';
+  String password = '';
+  bool passwordChecked = true;
+
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController roleController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  var items = ['Event Organizer', 'Sponsorship'];
+  var dropDownValue = 'Event Organizer';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +76,7 @@ class _RegisterState extends State<Register> {
                     )),
               ),
               TextField(
+                controller: fullNameController,
                 enabled: true,
                 decoration: InputDecoration(
                     suffixIcon: const Padding(
@@ -80,6 +110,7 @@ class _RegisterState extends State<Register> {
                 height: 24,
               ),
               TextField(
+                controller: emailController,
                 enabled: true,
                 decoration: InputDecoration(
                     suffixIcon: const Padding(
@@ -120,20 +151,48 @@ class _RegisterState extends State<Register> {
                       border: Border.all(
                           color: const Color.fromRGBO(196, 201, 210, 100),
                           width: 2)),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 32),
-                    child: RoleDropDown(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                          value: dropDownValue,
+                          items: items.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(
+                                items,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropDownValue = newValue!;
+                            });
+                          }),
+                    ),
                   )),
               const SizedBox(
                 height: 24,
               ),
               TextField(
+                obscureText: secure,
+                controller: passwordController,
                 enabled: true,
                 decoration: InputDecoration(
-                    suffixIcon: const Padding(
-                      padding: EdgeInsets.only(right: 25),
-                      child: Icon(Icons.remove_red_eye,
-                          color: Color.fromRGBO(170, 174, 182, 100)),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 25),
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              secure = !secure;
+                            });
+                          },
+                          icon: const Icon(Icons.remove_red_eye),
+                          color: const Color.fromRGBO(170, 174, 182, 100)),
                     ),
                     prefix: const SizedBox(
                       width: 25,
@@ -161,12 +220,20 @@ class _RegisterState extends State<Register> {
                 height: 18,
               ),
               TextField(
+                obscureText: secure,
+                controller: confirmPasswordController,
                 enabled: true,
                 decoration: InputDecoration(
-                    suffixIcon: const Padding(
-                      padding: EdgeInsets.only(right: 25),
-                      child: Icon(Icons.remove_red_eye,
-                          color: Color.fromRGBO(170, 174, 182, 100)),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 25),
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              secure = !secure;
+                            });
+                          },
+                          icon: const Icon(Icons.remove_red_eye),
+                          color: const Color.fromRGBO(170, 174, 182, 100)),
                     ),
                     prefix: const SizedBox(
                       width: 25,
@@ -202,7 +269,45 @@ class _RegisterState extends State<Register> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 124, vertical: 18),
                         backgroundColor: const Color(0xff372E1D)),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        fullName = fullNameController.text;
+                        email = emailController.text;
+                        role = dropDownValue;
+                        if (passwordController.text ==
+                            confirmPasswordController.text) {
+                          password = passwordController.text;
+                        } else {
+                          passwordChecked = false;
+                        }
+
+                        if (dropDownValue == 'Event Organizer') {
+                          role = '1';
+                        } else if (dropDownValue == 'Sponsorship') {
+                          role = '2';
+                        }
+                      });
+
+                      user = Data(
+                          name: fullName,
+                          email: email,
+                          password: password,
+                          idRole: role,
+                          profilePhoto: 'ini url');
+
+                      getResponse(user);
+                      if (statusCode == 201) {
+                        setState(() {
+                          fullNameController.text = '';
+                          emailController.text = '';
+                          passwordController.text = '';
+                          confirmPasswordController.text = '';
+                        });
+                        Navigator.pushNamed(context, '/login');
+                      } else {
+                        setState(() {});
+                      }
+                    },
                     child: Text(
                       'Register',
                       style: GoogleFonts.poppins(
@@ -238,42 +343,6 @@ class _RegisterState extends State<Register> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class RoleDropDown extends StatefulWidget {
-  const RoleDropDown({super.key});
-
-  @override
-  State<RoleDropDown> createState() => _RoleDropDownState();
-}
-
-class _RoleDropDownState extends State<RoleDropDown> {
-  var items = ['Event Organizer', 'Sponsorship'];
-  var dropDownValue = 'Event Organizer';
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton(
-          value: dropDownValue,
-          items: items.map((String items) {
-            return DropdownMenuItem(
-              value: items,
-              child: Text(
-                items,
-                style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: const Color.fromARGB(156, 44, 44, 44)),
-              ),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              dropDownValue = newValue!;
-            });
-          }),
     );
   }
 }

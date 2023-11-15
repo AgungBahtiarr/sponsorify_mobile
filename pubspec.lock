@@ -57,14 +57,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
-  dot_navigation_bar:
-    dependency: "direct main"
-    description:
-      name: dot_navigation_bar
-      sha256: "753e1d91644e39beddd0a4ed7e366f37a95e38cafb601c3b7496120ae0532f63"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -108,7 +100,7 @@ packages:
     source: hosted
     version: "6.1.0"
   http:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http
       sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
@@ -264,14 +256,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  sweet_nav_bar:
-    dependency: "direct main"
-    description:
-      name: sweet_nav_bar
-      sha256: "03eed7f4fd6aee22736328493ba66565c3c4aee380720e0e0f96b0ab37feb1ea"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   term_glyph:
     dependency: transitive
     description:
