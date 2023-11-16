@@ -1,7 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sponsorify/data/datasource/remote_register.dart';
-import 'package:sponsorify/data/model/register.dart';
+import 'package:sponsorify/data/model/register_model.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -37,6 +39,9 @@ class _RegisterState extends State<Register> {
 
   var items = ['Event Organizer', 'Sponsorship'];
   var dropDownValue = 'Event Organizer';
+
+  final alertSuccess = const SnackBar(content: Text("Register Success"));
+  final alertFailed = const SnackBar(content: Text("Register Failed"));
 
   @override
   Widget build(BuildContext context) {
@@ -269,16 +274,20 @@ class _RegisterState extends State<Register> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 124, vertical: 18),
                         backgroundColor: const Color(0xff372E1D)),
-                    onPressed: () {
+                    onPressed: () async {
                       setState(() {
                         fullName = fullNameController.text;
                         email = emailController.text;
                         role = dropDownValue;
+
                         if (passwordController.text ==
                             confirmPasswordController.text) {
                           password = passwordController.text;
                         } else {
                           passwordChecked = false;
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text("Password Not Match")));
                         }
 
                         if (dropDownValue == 'Event Organizer') {
@@ -295,17 +304,21 @@ class _RegisterState extends State<Register> {
                           idRole: role,
                           profilePhoto: 'ini url');
 
-                      getResponse(user);
-                      if (statusCode == 201) {
+                      await getResponse(user);
+                      if (statusCode == 201 && passwordChecked == false) {
                         setState(() {
                           fullNameController.text = '';
                           emailController.text = '';
                           passwordController.text = '';
                           confirmPasswordController.text = '';
                         });
+
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(alertSuccess);
                         Navigator.pushNamed(context, '/login');
                       } else {
                         setState(() {});
+                        ScaffoldMessenger.of(context).showSnackBar(alertFailed);
                       }
                     },
                     child: Text(
@@ -328,7 +341,9 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.w500),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
                     child: Text(
                       'Login',
                       style: GoogleFonts.poppins(

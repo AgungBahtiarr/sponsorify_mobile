@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sponsorify/routers.dart';
+import 'package:sponsorify/router.dart';
 
 void main() {
   runApp(const Sponsorify());

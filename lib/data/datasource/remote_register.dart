@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-import '../model/register.dart';
+import '../model/register_model.dart';
 
 class RemoteRegister {
-
   Future<int> register(Data user) async {
     final response = await http.post(
         Uri.parse('http://10.0.2.2:8080/api/register'),
@@ -19,5 +18,4 @@ class RemoteRegister {
       return response.statusCode;
     }
   }
-
 }

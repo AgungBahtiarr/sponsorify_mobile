@@ -36,31 +36,29 @@ class Data {
   final int? id;
   final String? password;
 
-  Data({
-    required this.name,
-    required this.email,
-    this.profilePhoto,
-    required this.idRole,
-    this.updatedAt,
-    this.createdAt,
-    this.id,
-    this.password
-  });
+  Data(
+      {required this.name,
+      required this.email,
+      this.profilePhoto,
+      required this.idRole,
+      this.updatedAt,
+      this.createdAt,
+      this.id,
+      this.password});
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        name: json["name"],
-        email: json["email"],
-        profilePhoto: json["profile_photo"],
-        idRole: json["id_role"],
-        updatedAt: DateTime.parse(json["updated_at"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        id: json["id"],
-        password: json["password"]
-      );
+      name: json["name"],
+      email: json["email"],
+      profilePhoto: json["profile_photo"],
+      idRole: json["id_role"],
+      updatedAt: DateTime.parse(json["updated_at"]),
+      createdAt: DateTime.parse(json["created_at"]),
+      id: json["id"],
+      password: json["password"]);
 
   Map<String, dynamic> toJson() => {
         "name": name,

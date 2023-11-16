@@ -1,5 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sponsorify/data/datasource/remote_login.dart';
+import 'package:sponsorify/data/model/login_model.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,6 +14,32 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  LoginModel? user;
+  LoginModel? data;
+
+  Future<LoginModel> login(user) async {
+    final response = await RemoteLogin().login(user);
+    return response;
+  }
+
+  bool isSecure = true;
+
+  String? token;
+  bool? statusCode;
+  String email = '';
+  String password = '';
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  Future<void> setPref(token) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+  }
+
+  final alertSuccess = const SnackBar(content: Text("Login Success"));
+  final alertFailed = const SnackBar(content: Text("Login Failed"));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +71,7 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   TextField(
+                    controller: emailController,
                     enabled: true,
                     decoration: InputDecoration(
                         suffixIcon: const Padding(
@@ -73,12 +105,20 @@ class _LoginState extends State<Login> {
                     height: 28,
                   ),
                   TextField(
+                    obscureText: isSecure,
+                    controller: passwordController,
                     enabled: true,
                     decoration: InputDecoration(
-                        suffixIcon: const Padding(
-                          padding: EdgeInsets.only(right: 25),
-                          child: Icon(Icons.remove_red_eye,
-                              color: Color.fromRGBO(170, 174, 182, 100)),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.only(right: 14),
+                          child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isSecure = !isSecure;
+                                });
+                              },
+                              icon: const Icon(Icons.remove_red_eye),
+                              color: const Color.fromRGBO(170, 174, 182, 100)),
                         ),
                         prefix: const SizedBox(
                           width: 25,
@@ -121,7 +161,48 @@ class _LoginState extends State<Login> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 137, vertical: 18),
                         backgroundColor: const Color(0xff372E1D)),
-                    onPressed: () {},
+                    onPressed: () async {
+                      setState(() {
+                        email = emailController.text;
+                        password = passwordController.text;
+                        user = LoginModel(email: email, password: password);
+                      });
+
+                      await login(user).then((value) {
+                        setState(() {
+                          data = value;
+                        });
+                      });
+
+                      if (data!.success == true) {
+                        if (data!.role == 1) {
+                          setState(() {
+                            emailController.text = '';
+                            passwordController.text = '';
+                            setPref(data!.token);
+                          });
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(alertSuccess);
+                          Navigator.pushNamed(context, '/dashboard_event');
+                        } else if (data!.role == 2) {
+                          setState(() {
+                            emailController.text = '';
+                            passwordController.text = '';
+                            setPref(data!.token);
+                          });
+                          Navigator.pushNamed(
+                              context, '/dashboard_sponsorship');
+                        }
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(alertSuccess);
+                      } else {
+                        setState(() {
+                          emailController.text = '';
+                          passwordController.text = '';
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(alertFailed);
+                      }
+                    },
                     child: Text(
                       'Login',
                       style: GoogleFonts.poppins(
@@ -142,7 +223,9 @@ class _LoginState extends State<Login> {
                         fontWeight: FontWeight.w500),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text(
                       'Register',
                       style: GoogleFonts.poppins(
