@@ -32,9 +32,11 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> setPref(token) async {
+  Future<void> setPref([token, userName, urlPhoto]) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
+    prefs.setString('userName', userName);
+    prefs.setString('urlPhoto', urlPhoto);
   }
 
   final alertSuccess = const SnackBar(content: Text("Login Success"));
@@ -179,8 +181,10 @@ class _LoginState extends State<Login> {
                           setState(() {
                             emailController.text = '';
                             passwordController.text = '';
-                            setPref(data!.token);
+                            setPref(data!.token, data!.user!.name,
+                                data!.user!.profilePhoto);
                           });
+                          print(data!.user!.name);
                           ScaffoldMessenger.of(context)
                               .showSnackBar(alertSuccess);
                           Navigator.pushNamed(context, '/dashboard_event');
