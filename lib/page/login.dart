@@ -32,15 +32,18 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> setPref([token, userName, urlPhoto]) async {
+  Future<void> setPref([token, userName, urlPhoto, authId]) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
     prefs.setString('userName', userName);
     prefs.setString('urlPhoto', urlPhoto);
+    prefs.setInt('authId', authId);
   }
 
-  final alertSuccess = const SnackBar(content: Text("Login Success"));
-  final alertFailed = const SnackBar(content: Text("Login Failed"));
+  final alertSuccess = const SnackBar(
+      backgroundColor: Colors.green, content: Text("Login Success"));
+  final alertFailed = const SnackBar(
+      backgroundColor: Colors.red, content: Text("Login Failed"));
 
   @override
   Widget build(BuildContext context) {
@@ -182,12 +185,12 @@ class _LoginState extends State<Login> {
                             emailController.text = '';
                             passwordController.text = '';
                             setPref(data!.token, data!.user!.name,
-                                data!.user!.profilePhoto);
+                                data!.user!.profilePhoto, data!.user!.id);
                           });
-                          print(data!.user!.name);
+                          debugPrint(data!.user!.name);
                           ScaffoldMessenger.of(context)
                               .showSnackBar(alertSuccess);
-                          Navigator.pushNamed(context, '/dashboard_event');
+                          Navigator.pushNamed(context, '/main_layout');
                         } else if (data!.role == 2) {
                           setState(() {
                             emailController.text = '';
@@ -210,7 +213,9 @@ class _LoginState extends State<Login> {
                     child: Text(
                       'Login',
                       style: GoogleFonts.poppins(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     )),
               ),
               const SizedBox(

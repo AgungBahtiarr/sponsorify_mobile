@@ -12,7 +12,13 @@ class RemoteLogin {
         body: jsonEncode(user));
 
     var data = jsonDecode(response.body);
-    LoginModel user1 = LoginModel.fromJson(data);
+    LoginModel? user1;
+
+    if (response.statusCode == 200) {
+      user1 = LoginModel.fromJson(data);
+    } else {
+      user1 = LoginModel.fromJsonFail(data);
+    }
 
     if (user1.success == true) {
       return user1;

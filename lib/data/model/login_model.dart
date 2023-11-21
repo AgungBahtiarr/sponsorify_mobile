@@ -32,36 +32,36 @@ class LoginModel {
       email: json["email"],
       password: json["password"]);
 
-  Map<String, dynamic> toJson() => {
-        // "success": success,
-        // "message": message,
-        // "token": token,
-        // "role": role,
-        // "user": user!.toJson(),
-        "email": email,
-        "password": password
-      };
+  factory LoginModel.fromJsonFail(Map<String, dynamic> json) => LoginModel(
+      success: json["success"],
+      message: json["message"],
+      token: json["token"],
+      role: json["role"],
+      email: json["email"],
+      password: json["password"]);
+
+  Map<String, dynamic> toJson() => {"email": email, "password": password};
 }
 
 class User {
-  final int id;
-  final String name;
-  final String email;
+  final int? id;
+  final String? name;
+  final String? email;
   final dynamic emailVerifiedAt;
-  final int idRole;
-  final String profilePhoto;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final int? idRole;
+  final String? profilePhoto;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   User({
-    required this.id,
-    required this.name,
-    required this.email,
-    required this.emailVerifiedAt,
-    required this.idRole,
-    required this.profilePhoto,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.name,
+    this.email,
+    this.emailVerifiedAt,
+    this.idRole,
+    this.profilePhoto,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
@@ -86,7 +86,7 @@ class User {
         "email_verified_at": emailVerifiedAt,
         "id_role": idRole,
         "profile_photo": profilePhoto,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        // "created_at": createdAt.toIso8601String(),
+        // "updated_at": updatedAt.toIso8601String(),
       };
 }

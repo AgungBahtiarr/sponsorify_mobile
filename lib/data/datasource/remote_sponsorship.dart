@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/sponsorship_model.dart';
 
@@ -22,7 +23,25 @@ class RemoteSponsorship {
           )
           .toList();
     } else {
-      print(response.body);
+      debugPrint(response.body);
+    }
+  }
+
+  Future getDetail(token, id) async {
+    final response = await http.get(
+      Uri.parse("http://10.0.2.2:8080/api/sponsorship/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      return Sponsorship.fromJson(body);
+    } else {
+      throw ('Error bos');
     }
   }
 }
