@@ -29,7 +29,7 @@ class _MainLayoutState extends State<MainLayout> {
             label: 'Home',
           ),
           const NavigationDestination(
-            selectedIcon: Icon(Icons.search),
+            selectedIcon: Icon(Icons.saved_search_outlined),
             icon: Icon(Icons.search_outlined),
             label: 'Search',
           ),

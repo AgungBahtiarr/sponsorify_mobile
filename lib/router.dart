@@ -16,7 +16,7 @@ class Routers extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/main_layout',
       routes: {
         // Auth
         '/register': (context) => const Register(),
