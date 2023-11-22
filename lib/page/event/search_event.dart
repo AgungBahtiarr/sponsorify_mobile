@@ -14,13 +14,20 @@ class SearchEvent extends StatefulWidget {
 
 class _SearchEventState extends State<SearchEvent> {
   List<CategoryModel> listCategory = [];
-  List<dynamic> listSponsorship = [];
+  List<dynamic> listSponsorshipCategory = [];
 
   String? token = '';
 
   Future getData() async {
-    final responCategory = await RemoteCategory().getCategory();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
+      token = prefs.getString('token');
+    });
+    final responCategory = await RemoteCategory().getCategory();
+    final responseAll = await RemoteSponsorship().getData(token);
+
+    setState(() {
+      listSponsorshipCategory = responseAll;
       listCategory = responCategory;
     });
   }
@@ -28,16 +35,12 @@ class _SearchEventState extends State<SearchEvent> {
   Future getDataSponsorshipWithCategory(id) async {
     final response = await RemoteSponsorship().getDataWithCategory(token, id);
     setState(() {
-      listSponsorship = response;
+      listSponsorshipCategory = response;
     });
   }
 
   @override
-  void initState() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      token = prefs.getString('token');
-    });
+  void initState() {
     getData();
     super.initState();
   }
@@ -96,7 +99,7 @@ class _SearchEventState extends State<SearchEvent> {
             height: MediaQuery.of(context).size.height,
             // width: MediaQuery.of(context).size.width,
             child: ListView.builder(
-                itemCount: listSponsorship.length,
+                itemCount: listSponsorshipCategory.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 8),
@@ -139,13 +142,15 @@ class _SearchEventState extends State<SearchEvent> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  listSponsorship[index].name,
+                                  listSponsorshipCategory[index].name,
                                   style: GoogleFonts.poppins(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600),
                                 ),
                                 Text(
-                                  listSponsorship[index].category.category,
+                                  listSponsorshipCategory[index]
+                                      .category
+                                      .category,
                                   style: GoogleFonts.poppins(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500),
@@ -164,12 +169,11 @@ class _SearchEventState extends State<SearchEvent> {
                                           backgroundColor:
                                               const Color(0xFF77E0B5)),
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/detail_sponsorship',
-                                            arguments: {
-                                              "idSponsorship":
-                                                  listSponsorship[index].id
-                                            });
+                                        Navigator.pushNamed(context,
+                                            '/detail_sponsorship', arguments: {
+                                          "idSponsorship":
+                                              listSponsorshipCategory[index].id
+                                        });
                                       },
                                       child: Text(
                                         'Detail',
