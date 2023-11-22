@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/event_model.dart';
 
@@ -16,10 +15,28 @@ class RemoteEvent {
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
- 
+
       return body.map((json) => EventModel.fromJson(json)).toList();
     } else {
       throw (response.statusCode);
+    }
+  }
+
+  Future addData(token, name, email, description, image) async {
+    var headers = {'Authorization': 'Bearer $token'};
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('http://10.0.2.2:8080/api/event'));
+    request.fields.addAll({'name': name, 'description': name, 'email': email});
+    request.files.add(
+        await http.MultipartFile.fromPath('profile_photo', image.toString()));
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

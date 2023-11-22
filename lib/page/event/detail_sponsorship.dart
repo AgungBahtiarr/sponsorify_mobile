@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -45,7 +47,6 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
     if (result != null) {
       setState(() {
         file = File(result.files.single.path!);
-        print(file);
       });
     } else {
       // User canceled the picker
@@ -322,8 +323,6 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                           onPressed: () async {
                                             for (var event in events) {
                                               if (dropDownValue == event.name) {
-                                                print(event.id);
-
                                                 setState(() {
                                                   idEvent = event.id;
                                                 });
@@ -335,10 +334,7 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                                 isSubmmited = value;
                                               });
                                             });
-
-                                            print("$isSubmmited di bawah");
                                             if (isSubmmited == true) {
-                                              print('berhasil');
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       backgroundColor:
@@ -348,7 +344,6 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
 
                                               Navigator.pop(context);
                                             } else {
-                                              print('gagal');
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       backgroundColor:

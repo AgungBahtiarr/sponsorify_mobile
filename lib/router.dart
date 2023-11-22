@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sponsorify/main_layout.dart';
+import 'package:sponsorify/page/event/add_event.dart';
 import 'package:sponsorify/page/event/dashboard_event.dart';
 import 'package:sponsorify/page/event/detail_sponsorship.dart';
 import 'package:sponsorify/page/event/search_event.dart';
@@ -16,7 +17,7 @@ class Routers extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/main_layout',
+      initialRoute: '/login',
       routes: {
         // Auth
         '/register': (context) => const Register(),
@@ -27,6 +28,7 @@ class Routers extends StatelessWidget {
         '/dashboard_event': (context) => const DashboardEvent(),
         '/detail_sponsorship': (context) => const DetailSponsorship(),
         '/search_event': (context) => const SearchEvent(),
+        '/add_event': (context) => const AddEvent(),
         // Sponsorship
         '/dashboard_sponsorship': (context) => const DashboardSponsorship()
       },

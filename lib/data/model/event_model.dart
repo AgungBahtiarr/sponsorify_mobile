@@ -1,33 +1,34 @@
 import 'dart:convert';
 
 class EventModel {
-    final int id;
-    final String name;
-    final String description;
-    final String profilePhoto;
-    final String email;
-    final int idUsers;
-    final DateTime createdAt;
-    final DateTime updatedAt;
-    final Users users;
+  final int id;
+  final String name;
+  final String description;
+  final String profilePhoto;
+  final String email;
+  final int idUsers;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  final Users users;
 
-    EventModel({
-        required this.id,
-        required this.name,
-        required this.description,
-        required this.profilePhoto,
-        required this.email,
-        required this.idUsers,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.users,
-    });
+  EventModel({
+    required this.id,
+    required this.name,
+    required this.description,
+    required this.profilePhoto,
+    required this.email,
+    required this.idUsers,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.users,
+  });
 
-    factory EventModel.fromRawJson(String str) => EventModel.fromJson(json.decode(str));
+  factory EventModel.fromRawJson(String str) =>
+      EventModel.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
+  factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
         id: json["id"],
         name: json["name"],
         description: json["description"],
@@ -37,9 +38,9 @@ class EventModel {
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
         users: Users.fromJson(json["users"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "description": description,
@@ -49,35 +50,35 @@ class EventModel {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "users": users.toJson(),
-    };
+      };
 }
 
 class Users {
-    final int id;
-    final String name;
-    final String email;
-    final dynamic emailVerifiedAt;
-    final int idRole;
-    final String profilePhoto;
-    final DateTime createdAt;
-    final DateTime updatedAt;
+  final int id;
+  final String name;
+  final String email;
+  final dynamic emailVerifiedAt;
+  final int idRole;
+  final String profilePhoto;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-    Users({
-        required this.id,
-        required this.name,
-        required this.email,
-        required this.emailVerifiedAt,
-        required this.idRole,
-        required this.profilePhoto,
-        required this.createdAt,
-        required this.updatedAt,
-    });
+  Users({
+    required this.id,
+    required this.name,
+    required this.email,
+    required this.emailVerifiedAt,
+    required this.idRole,
+    required this.profilePhoto,
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-    factory Users.fromRawJson(String str) => Users.fromJson(json.decode(str));
+  factory Users.fromRawJson(String str) => Users.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
+  String toRawJson() => json.encode(toJson());
 
-    factory Users.fromJson(Map<String, dynamic> json) => Users(
+  factory Users.fromJson(Map<String, dynamic> json) => Users(
         id: json["id"],
         name: json["name"],
         email: json["email"],
@@ -86,9 +87,9 @@ class Users {
         profilePhoto: json["profile_photo"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
         "email": email,
@@ -97,5 +98,5 @@ class Users {
         "profile_photo": profilePhoto,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
-    };
+      };
 }

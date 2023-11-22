@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sponsorify/page/event/add_event.dart';
 import 'package:sponsorify/page/event/dashboard_event.dart';
 import 'package:sponsorify/page/event/search_event.dart';
 
@@ -68,7 +69,8 @@ class _MainLayoutState extends State<MainLayout> {
       ),
       body: <Widget>[
         const DashboardEvent(),
-        const SearchEvent()
+        const SearchEvent(),
+        const AddEvent()
       ][currentPageIndex],
     );
   }
