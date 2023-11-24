@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sponsorify/data/datasource/remote_category.dart';
+import 'package:sponsorify/data/datasource/remote_saved.dart';
 import 'package:sponsorify/data/datasource/remote_sponsorship.dart';
 import 'package:sponsorify/data/model/category_model.dart';
+import 'package:sponsorify/data/model/sponsorship_model.dart';
 
 class SearchEvent extends StatefulWidget {
   const SearchEvent({super.key});
@@ -14,9 +18,11 @@ class SearchEvent extends StatefulWidget {
 
 class _SearchEventState extends State<SearchEvent> {
   List<CategoryModel> listCategory = [];
-  List<dynamic> listSponsorshipCategory = [];
+  List<Sponsorship> listSponsorshipCategory = [];
 
   String? token = '';
+
+  bool? isSaved;
 
   Future getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -30,6 +36,12 @@ class _SearchEventState extends State<SearchEvent> {
       listSponsorshipCategory = responseAll;
       listCategory = responCategory;
     });
+  }
+
+  Future addToSaved(id) async {
+    final response = await RemoteSaved().addData(token, id);
+
+    return response;
   }
 
   Future getDataSponsorshipWithCategory(id) async {
@@ -125,14 +137,14 @@ class _SearchEventState extends State<SearchEvent> {
                             child: Container(
                               width: 124,
                               height: 88,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(20)),
                                   color: Colors.black12,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                          'https://picsum.photos/200/300'))),
+                                          'http://10.0.2.2:8080/${listSponsorshipCategory[index].profilePhoto}'))),
                             ),
                           ),
                           Padding(
@@ -199,7 +211,27 @@ class _SearchEventState extends State<SearchEvent> {
                               child: IconButton(
                                   padding: EdgeInsets.zero,
                                   color: Colors.white,
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await addToSaved(
+                                            listSponsorshipCategory[index].id)
+                                        .then((value) {
+                                      setState(() {
+                                        isSaved = value;
+                                      });
+                                    });
+                                    if (isSaved == true) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              backgroundColor: Colors.green,
+                                              content:
+                                                  Text("Berhasil disimpan")));
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              backgroundColor: Colors.red,
+                                              content: Text("Gagal disimpan")));
+                                    }
+                                  },
                                   icon:
                                       const Icon(Icons.bookmark_add_outlined)),
                             ),

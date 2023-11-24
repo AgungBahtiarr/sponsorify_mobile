@@ -1,45 +1,34 @@
 import 'dart:convert';
 
-class ProposalModel {
+class SavedModel {
   final int? id;
-  final String? proposal;
-  final dynamic message;
-  final int? idSponsorship;
   final int? idEvent;
+  final int? idSponsorship;
   final int? idUsers;
-  final int? idStatus;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   final Sponsorship? sponsorship;
-  final Status? status;
 
-  ProposalModel({
+  SavedModel({
     this.id,
-    this.proposal,
-    this.message,
-    this.idSponsorship,
     this.idEvent,
+    this.idSponsorship,
     this.idUsers,
-    this.idStatus,
     this.createdAt,
     this.updatedAt,
     this.sponsorship,
-    this.status,
   });
 
-  factory ProposalModel.fromRawJson(String str) =>
-      ProposalModel.fromJson(json.decode(str));
+  factory SavedModel.fromRawJson(String str) =>
+      SavedModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProposalModel.fromJson(Map<String, dynamic> json) => ProposalModel(
+  factory SavedModel.fromJson(Map<String, dynamic> json) => SavedModel(
         id: json["id"],
-        proposal: json["proposal"],
-        message: json["message"],
-        idSponsorship: json["id_sponsorship"],
         idEvent: json["id_event"],
+        idSponsorship: json["id_sponsorship"],
         idUsers: json["id_users"],
-        idStatus: json["id_status"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -49,21 +38,16 @@ class ProposalModel {
         sponsorship: json["sponsorship"] == null
             ? null
             : Sponsorship.fromJson(json["sponsorship"]),
-        status: json["status"] == null ? null : Status.fromJson(json["status"]),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "proposal": proposal,
-        "message": message,
-        "id_sponsorship": idSponsorship,
         "id_event": idEvent,
+        "id_sponsorship": idSponsorship,
         "id_users": idUsers,
-        "id_status": idStatus,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "sponsorship": sponsorship?.toJson(),
-        "status": status?.toJson(),
       };
 }
 
@@ -125,33 +109,5 @@ class Sponsorship {
         "id_users": idUsers,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-      };
-}
-
-class Status {
-  final int? id;
-  final String? status;
-  final String? description;
-
-  Status({
-    this.id,
-    this.status,
-    this.description,
-  });
-
-  factory Status.fromRawJson(String str) => Status.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
-  factory Status.fromJson(Map<String, dynamic> json) => Status(
-        id: json["id"],
-        status: json["status"],
-        description: json["description"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "status": status,
-        "description": description,
       };
 }
