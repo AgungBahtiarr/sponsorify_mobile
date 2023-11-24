@@ -305,6 +305,7 @@ class _RegisterState extends State<Register> {
                           profilePhoto: 'ini url');
 
                       await getResponse(user);
+                      print(statusCode);
                       if (statusCode == 201 && passwordChecked == false) {
                         setState(() {
                           fullNameController.text = '';
@@ -312,7 +313,6 @@ class _RegisterState extends State<Register> {
                           passwordController.text = '';
                           confirmPasswordController.text = '';
                         });
-
                         ScaffoldMessenger.of(context)
                             .showSnackBar(alertSuccess);
                         Navigator.pushNamed(context, '/login');
@@ -324,7 +324,9 @@ class _RegisterState extends State<Register> {
                     child: Text(
                       'Register',
                       style: GoogleFonts.poppins(
-                          fontSize: 18, fontWeight: FontWeight.bold),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     )),
               ),
               const SizedBox(
@@ -342,7 +344,7 @@ class _RegisterState extends State<Register> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pop(context);
                     },
                     child: Text(
                       'Login',

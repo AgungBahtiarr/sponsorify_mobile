@@ -190,14 +190,15 @@ class _LoginState extends State<Login> {
                           debugPrint(data!.user!.name);
                           ScaffoldMessenger.of(context)
                               .showSnackBar(alertSuccess);
-                          Navigator.pushNamed(context, '/main_layout');
+                          Navigator.pushReplacementNamed(
+                              context, '/main_layout');
                         } else if (data!.role == 2) {
                           setState(() {
                             emailController.text = '';
                             passwordController.text = '';
                             setPref(data!.token);
                           });
-                          Navigator.pushNamed(
+                          Navigator.pushReplacementNamed(
                               context, '/dashboard_sponsorship');
                         }
                         ScaffoldMessenger.of(context)
@@ -233,7 +234,7 @@ class _LoginState extends State<Login> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.pushNamed(context, '/register');
                     },
                     child: Text(
                       'Register',
