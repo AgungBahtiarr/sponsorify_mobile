@@ -63,7 +63,7 @@ class Data {
   Map<String, dynamic> toJson() => {
         "name": name,
         "email": email,
-        "profile_photo": profilePhoto,
+        "profile_photo": 'url_photo',
         "id_role": idRole,
         "id": id,
         "password": password

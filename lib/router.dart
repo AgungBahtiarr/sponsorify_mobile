@@ -4,6 +4,9 @@ import 'package:sponsorify/main_layout.dart';
 import 'package:sponsorify/page/event/add_event.dart';
 import 'package:sponsorify/page/event/dashboard_event.dart';
 import 'package:sponsorify/page/event/detail_sponsorship.dart';
+import 'package:sponsorify/page/event/edit_profile_event.dart';
+import 'package:sponsorify/page/event/myevent.dart';
+import 'package:sponsorify/page/event/profile_event.dart';
 import 'package:sponsorify/page/event/saved_event.dart';
 import 'package:sponsorify/page/event/search_event.dart';
 import 'package:sponsorify/page/login.dart';
@@ -69,6 +72,9 @@ class _RoutersState extends State<Routers> {
         '/search_event': (context) => const SearchEvent(),
         '/add_event': (context) => const AddEvent(),
         '/saved_event': (context) => const SavedEvent(),
+        '/profile_event': (context) => const ProfileEvent(),
+        '/myevent': (context) => const MyEvent(),
+        '/edit_profile_event': (context) => const EditProfileEvent(),
         // Sponsorship
         '/dashboard_sponsorship': (context) => const DashboardSponsorship()
       },

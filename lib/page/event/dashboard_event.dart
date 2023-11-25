@@ -67,7 +67,7 @@ class _DashboardEventState extends State<DashboardEvent> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? CircularProgressIndicator()
+        ? Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

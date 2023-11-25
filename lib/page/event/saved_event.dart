@@ -33,7 +33,7 @@ class _SavedEventState extends State<SavedEvent> {
   }
 
   Future deleteData(id) async {
-    final response = await RemoteSaved().deleteData(token, id);
+    await RemoteSaved().deleteData(token, id);
     getData();
   }
 

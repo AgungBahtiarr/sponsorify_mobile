@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sponsorify/page/event/add_event.dart';
 import 'package:sponsorify/page/event/dashboard_event.dart';
+import 'package:sponsorify/page/event/profile_event.dart';
 import 'package:sponsorify/page/event/saved_event.dart';
 import 'package:sponsorify/page/event/search_event.dart';
 
@@ -72,7 +73,8 @@ class _MainLayoutState extends State<MainLayout> {
         const DashboardEvent(),
         const SearchEvent(),
         const AddEvent(),
-        const SavedEvent()
+        const SavedEvent(),
+        const ProfileEvent()
       ][currentPageIndex],
     );
   }
