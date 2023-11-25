@@ -29,6 +29,7 @@ class _MyEventState extends State<MyEvent> {
   }
 
   Future deleteData(id, token) async {
+    // ignore: unused_local_variable
     final response = await RemoteEvent().deleteData(token, id);
   }
 

@@ -6,8 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sponsorify/data/datasource/remote_category.dart';
 import 'package:sponsorify/data/datasource/remote_saved.dart';
 import 'package:sponsorify/data/datasource/remote_sponsorship.dart';
+import 'package:sponsorify/data/datasource/remote_user.dart';
 import 'package:sponsorify/data/model/category_model.dart';
 import 'package:sponsorify/data/model/sponsorship_model.dart';
+import 'package:sponsorify/data/model/user_model.dart';
 
 class DashboardEvent extends StatefulWidget {
   const DashboardEvent({super.key});
@@ -24,6 +26,7 @@ class _DashboardEventState extends State<DashboardEvent> {
   String? userName = '';
   String? urlPhoto;
   int? idSponsorship;
+  UserModel? user;
 
   bool? isSaved;
   bool isLoading = false;
@@ -39,6 +42,11 @@ class _DashboardEventState extends State<DashboardEvent> {
       token = prefs.getString('token');
       userName = prefs.getString('userName');
       urlPhoto = prefs.getString("urlPhoto");
+    });
+
+    final userDataResponse = await RemoteUser().getData(token);
+    setState(() {
+      user = userDataResponse;
     });
     List<Sponsorship> response = await RemoteSponsorship().getData(token);
     List<CategoryModel> responseCategory = await RemoteCategory().getCategory();
@@ -93,9 +101,11 @@ class _DashboardEventState extends State<DashboardEvent> {
                                 height: 42,
                                 width: 42,
                                 decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
                                     image: DecorationImage(
+                                        fit: BoxFit.cover,
                                         image: NetworkImage(
-                                            'http://10.0.2.2:8080/$urlPhoto')),
+                                            'http://10.0.2.2:8080/${user!.data!.profilePhoto}')),
                                     color: Color.fromARGB(115, 127, 127, 127)),
                               ),
                               Padding(

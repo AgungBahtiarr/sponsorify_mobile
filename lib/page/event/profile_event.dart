@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sponsorify/data/datasource/remote_logout.dart';
+import 'package:sponsorify/data/datasource/remote_user.dart';
+import 'package:sponsorify/data/model/user_model.dart';
 
 class ProfileEvent extends StatefulWidget {
   const ProfileEvent({super.key});
@@ -9,6 +13,54 @@ class ProfileEvent extends StatefulWidget {
 }
 
 class _ProfileEventState extends State<ProfileEvent> {
+  UserModel? user;
+  String? token;
+  // bool isLoading = true;
+
+  Future getData() async {
+    // setState(() {
+    //   isLoading = !isLoading;
+    // });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      token = prefs.getString('token');
+    });
+    final response = await RemoteUser().getData(token);
+    setState(() {
+      user = response;
+    });
+    // setState(() {
+    //   isLoading = !isLoading;
+    // });
+  }
+
+  Future logout() async {
+    final response = await RemoteLogout().logout(token);
+    if (response == true) {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Thank you ^_^'),
+        backgroundColor: Colors.green,
+      ));
+      // ignore: use_build_context_synchronously
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.clear();
+      Navigator.pushReplacementNamed(context, '/login');
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Failed'),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,14 +83,16 @@ class _ProfileEventState extends State<ProfileEvent> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.green[400],
-                      image: const DecorationImage(
-                          image: NetworkImage('https://picsum.photos/200')),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              'http://10.0.2.2:8080/${user!.data!.profilePhoto}')),
                     )),
                 const SizedBox(
                   height: 18,
                 ),
                 Text(
-                  "Agung Bahtiar",
+                  "${user!.data!.name}",
                   style: GoogleFonts.poppins(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -48,14 +102,14 @@ class _ProfileEventState extends State<ProfileEvent> {
                   height: 24,
                 ),
                 Text(
-                  "Event Organizer",
+                  "${user!.data!.role!.role}",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xffAFB0B6)),
                 ),
                 Text(
-                  "agungbahtiar050@gmail.com",
+                  "${user!.data!.email}",
                   style: GoogleFonts.poppins(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -96,9 +150,11 @@ class _ProfileEventState extends State<ProfileEvent> {
                                 width: 40,
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            'https://picsum.photos/200'))),
+                                    color: Color(0xff372E1D)),
+                                child: const Icon(
+                                  Icons.home_rounded,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(
                                 width: 32,
@@ -151,11 +207,13 @@ class _ProfileEventState extends State<ProfileEvent> {
                                 height: 40,
                                 width: 40,
                                 decoration: const BoxDecoration(
-                                    color: Colors.black,
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            'https://picsum.photos/200'))),
+                                  color: Color(0xff372E1D),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Icon(
+                                  Icons.event,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(
                                 width: 32,
@@ -209,9 +267,11 @@ class _ProfileEventState extends State<ProfileEvent> {
                                 width: 40,
                                 decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            'https://picsum.photos/200'))),
+                                    color: Color(0xff372E1D)),
+                                child: const Icon(
+                                  Icons.person,
+                                  color: Colors.white,
+                                ),
                               ),
                               const SizedBox(
                                 width: 32,
@@ -237,7 +297,9 @@ class _ProfileEventState extends State<ProfileEvent> {
                 height: 28,
               ),
               ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    logout();
+                  },
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(MediaQuery.of(context).size.width, 38),
                       backgroundColor: const Color(0xffAA260C)),
