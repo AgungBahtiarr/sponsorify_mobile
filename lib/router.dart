@@ -11,6 +11,7 @@ import 'package:sponsorify/page/event/saved_event.dart';
 import 'package:sponsorify/page/event/search_event.dart';
 import 'package:sponsorify/page/login.dart';
 import 'package:sponsorify/page/register.dart';
+import 'package:sponsorify/page/sponsorship/add_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/dashboard_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/sponsorship_layout.dart';
 
@@ -68,15 +69,12 @@ class _RoutersState extends State<Routers> {
         }
       });
     });
-
-    print(isLogin);
   }
 
   @override
   void initState() {
     cekLogin();
     super.initState();
-    print(isLogin);
   }
 
   @override
@@ -101,7 +99,8 @@ class _RoutersState extends State<Routers> {
         '/myevent': (context) => const MyEvent(),
         '/edit_profile_event': (context) => const EditProfileEvent(),
         // Sponsorship
-        '/dashboard_sponsorship': (context) => const DashboardSponsorship()
+        '/dashboard_sponsorship': (context) => const DashboardSponsorship(),
+        '/add_sponsorship': (context) => const AddSponsorship(),
       },
     );
   }

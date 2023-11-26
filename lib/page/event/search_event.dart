@@ -139,7 +139,7 @@ class _SearchEventState extends State<SearchEvent> {
                               height: 88,
                               decoration: BoxDecoration(
                                   borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
+                                      const BorderRadius.all(Radius.circular(20)),
                                   color: Colors.black12,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,

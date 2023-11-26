@@ -26,6 +26,6 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
 
   @override
   Widget build(BuildContext context) {
-    return Placeholder();
+    return const Placeholder();
   }
 }

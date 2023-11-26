@@ -66,4 +66,43 @@ class RemoteSponsorship {
       throw ('Error bos');
     }
   }
+
+  Future addData(
+      token, name, email, description, address, idCategory, image) async {
+    var headers = {'Authorization': 'Bearer $token'};
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('http://10.0.2.2:8080/api/sponsorship'));
+    request.fields.addAll({
+      'name': '$name',
+      'email': '$email',
+      'description': '$description',
+      'address': '$address',
+      'id_category': '$idCategory'
+    });
+
+    try {
+      request.files
+          .add(await http.MultipartFile.fromPath('profile_photo', '$image'));
+    } catch (e) {
+      return false;
+    }
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<int> count(id) async {
+    final response = await http
+        .get(Uri.parse('http://10.0.2.2:8080/api/sponsorship/count/$id'));
+
+    var body = jsonDecode(response.body);
+    return body['count'];
+  }
 }

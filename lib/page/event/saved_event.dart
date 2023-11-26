@@ -23,7 +23,6 @@ class _SavedEventState extends State<SavedEvent> {
     setState(() {
       token = prefs.getString('token');
     });
-    print(token);
     final response = await RemoteSaved().getData(token);
     final responseProposal = await RemoteProposal().getData(token);
     setState(() {
@@ -135,7 +134,7 @@ class _SavedEventState extends State<SavedEvent> {
                                 height: 88,
                                 decoration: BoxDecoration(
                                     borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                                        const BorderRadius.all(Radius.circular(20)),
                                     color: Colors.black12,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,

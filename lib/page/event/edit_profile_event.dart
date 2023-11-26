@@ -281,7 +281,7 @@ class _EditProfileEventState extends State<EditProfileEvent> {
                             email = emailController.text;
                           });
                           editData(fullName, email);
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Text("Success"),
                             backgroundColor: Colors.green,
                           ));

@@ -52,14 +52,6 @@ class _RegisterState extends State<Register> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color(0xffE3E3E3)),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_back),
-                  )),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 38),
                 child: SizedBox(
@@ -305,17 +297,16 @@ class _RegisterState extends State<Register> {
                           profilePhoto: 'ini url');
 
                       await getResponse(user);
-                      print(statusCode);
-                      if (statusCode == 201 && passwordChecked == false) {
+                      if (statusCode == 201 && passwordChecked == true) {
                         setState(() {
                           fullNameController.text = '';
                           emailController.text = '';
                           passwordController.text = '';
                           confirmPasswordController.text = '';
                         });
+                        Navigator.pushNamed(context, '/login');
                         ScaffoldMessenger.of(context)
                             .showSnackBar(alertSuccess);
-                        Navigator.pushNamed(context, '/login');
                       } else {
                         setState(() {});
                         ScaffoldMessenger.of(context).showSnackBar(alertFailed);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sponsorify/data/datasource/remote_login.dart';
+import 'package:sponsorify/data/datasource/remote_sponsorship.dart';
 import 'package:sponsorify/data/model/login_model.dart';
 
 class Login extends StatefulWidget {
@@ -29,6 +30,9 @@ class _LoginState extends State<Login> {
   String email = '';
   String password = '';
 
+  int? count;
+  bool? isHaveSponsorship;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -39,6 +43,18 @@ class _LoginState extends State<Login> {
     prefs.setString('userName', userName);
     prefs.setString('urlPhoto', urlPhoto);
     prefs.setInt('authId', authId);
+  }
+
+  Future getSponsorshipCount(id) async {
+    int response = await RemoteSponsorship().count(id);
+    setState(() {
+      count = response;
+      if (count != 0) {
+        Navigator.pushReplacementNamed(context, '/sponsorship_layout');
+      } else {
+        Navigator.pushReplacementNamed(context, '/add_sponsorship');
+      }
+    });
   }
 
   final alertSuccess = const SnackBar(
@@ -199,8 +215,7 @@ class _LoginState extends State<Login> {
                             passwordController.text = '';
                             setPref(data!.token, data!.role);
                           });
-                          Navigator.pushReplacementNamed(
-                              context, '/sponsorship_layout');
+                          await getSponsorshipCount(data!.user!.id);
                         }
                         ScaffoldMessenger.of(context)
                             .showSnackBar(alertSuccess);

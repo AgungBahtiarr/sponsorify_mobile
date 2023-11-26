@@ -21,7 +21,6 @@ class _MyEventState extends State<MyEvent> {
       token = prefs.getString('token');
     });
 
-    print(token);
     final responseEvent = await RemoteEvent().getData(token);
     setState(() {
       events = responseEvent;

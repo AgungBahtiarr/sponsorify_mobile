@@ -398,7 +398,6 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                                     }
                                                   }
 
-                                                  print(idEvent);
 
                                                   await addProposal()
                                                       .then((value) {

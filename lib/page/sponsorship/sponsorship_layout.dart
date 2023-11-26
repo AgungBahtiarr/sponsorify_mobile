@@ -35,7 +35,7 @@ class _SponsorshipLayoutState extends State<SponsorshipLayout> {
         ],
       ),
       body: <Widget>[
-        DashboardSponsorship(),
+        const DashboardSponsorship(),
       ][currentPageIndex],
     );
   }
