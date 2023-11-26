@@ -26,8 +26,6 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('ini token  $token')),
-    );
+    return Placeholder();
   }
 }

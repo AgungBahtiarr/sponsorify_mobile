@@ -123,7 +123,7 @@ class _ProfileEventState extends State<ProfileEvent> {
             child: Column(children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/main_layout');
+                  Navigator.pushNamed(context, '/event_layout');
                 },
                 child: Container(
                     decoration: BoxDecoration(

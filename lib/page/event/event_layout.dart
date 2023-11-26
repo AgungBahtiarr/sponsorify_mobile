@@ -5,14 +5,14 @@ import 'package:sponsorify/page/event/profile_event.dart';
 import 'package:sponsorify/page/event/saved_event.dart';
 import 'package:sponsorify/page/event/search_event.dart';
 
-class MainLayout extends StatefulWidget {
-  const MainLayout({super.key});
+class EventLayout extends StatefulWidget {
+  const EventLayout({super.key});
 
   @override
-  State<MainLayout> createState() => _MainLayoutState();
+  State<EventLayout> createState() => _EventLayoutState();
 }
 
-class _MainLayoutState extends State<MainLayout> {
+class _EventLayoutState extends State<EventLayout> {
   int currentPageIndex = 0;
   @override
   Widget build(BuildContext context) {

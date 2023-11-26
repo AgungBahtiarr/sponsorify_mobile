@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:sponsorify/main_layout.dart';
+import 'package:sponsorify/page/event/event_layout.dart';
 import 'package:sponsorify/page/event/add_event.dart';
 import 'package:sponsorify/page/event/dashboard_event.dart';
 import 'package:sponsorify/page/event/detail_sponsorship.dart';
@@ -12,6 +12,7 @@ import 'package:sponsorify/page/event/search_event.dart';
 import 'package:sponsorify/page/login.dart';
 import 'package:sponsorify/page/register.dart';
 import 'package:sponsorify/page/sponsorship/dashboard_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/sponsorship_layout.dart';
 
 class Routers extends StatefulWidget {
   const Routers({
@@ -24,12 +25,15 @@ class Routers extends StatefulWidget {
 
 class _RoutersState extends State<Routers> {
   String? tokenLogin;
+  int? role;
   bool? isLogin;
+  String? nextPage;
 
   Future<bool> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       tokenLogin = prefs.getString('token');
+      role = prefs.getInt('role');
     });
     if (tokenLogin == null) {
       return false;
@@ -38,10 +42,30 @@ class _RoutersState extends State<Routers> {
     }
   }
 
+  Future getRole() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      role = prefs.getInt('role');
+    });
+
+    return role;
+  }
+
   Future cekLogin() async {
     await getToken().then((value) {
       setState(() {
         isLogin = value;
+      });
+    });
+
+    await getRole().then((value) {
+      setState(() {
+        role = value;
+        if (role == 1) {
+          nextPage = '/event_layout';
+        } else {
+          nextPage = '/sponsorship_layout';
+        }
       });
     });
 
@@ -59,13 +83,14 @@ class _RoutersState extends State<Routers> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: isLogin! ? '/main_layout' : '/login',
+      initialRoute: isLogin! ? nextPage! : '/login',
       routes: {
         // Auth
         '/register': (context) => const Register(),
         '/login': (context) => const Login(),
         // Main Layout
-        '/main_layout': (context) => const MainLayout(),
+        '/event_layout': (context) => const EventLayout(),
+        '/sponsorship_layout': (context) => const SponsorshipLayout(),
         // Event Organizer
         '/dashboard_event': (context) => const DashboardEvent(),
         '/detail_sponsorship': (context) => const DetailSponsorship(),
