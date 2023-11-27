@@ -22,7 +22,7 @@ class DetailSponsorship extends StatefulWidget {
 
 class _DetailSponsorshipState extends State<DetailSponsorship> {
   String? token;
-  Sponsorship? sponsorship;
+  SponsorshipModel? sponsorship;
 
   List<EventModel> events = [];
   List<String> eventModel = [];

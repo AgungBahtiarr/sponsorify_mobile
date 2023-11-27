@@ -28,9 +28,14 @@ class _SponsorshipLayoutState extends State<SponsorshipLayout> {
             label: 'Home',
           ),
           NavigationDestination(
+            selectedIcon: Icon(Icons.assignment_returned),
+            icon: Icon(Icons.assignment_returned_outlined),
+            label: 'Proposal',
+          ),
+          NavigationDestination(
             selectedIcon: Icon(Icons.person),
             icon: Icon(Icons.person_outline),
-            label: 'Search',
+            label: 'Profile',
           ),
         ],
       ),

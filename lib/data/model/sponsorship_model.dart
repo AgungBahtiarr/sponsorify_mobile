@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class Sponsorship {
+class SponsorshipModel {
     final int id;
     final String name;
     final String email;
@@ -14,7 +14,7 @@ class Sponsorship {
     final Category category;
     final User user;
 
-    Sponsorship({
+    SponsorshipModel({
         required this.id,
         required this.name,
         required this.email,
@@ -29,11 +29,11 @@ class Sponsorship {
         required this.user,
     });
 
-    factory Sponsorship.fromRawJson(String str) => Sponsorship.fromJson(json.decode(str));
+    factory SponsorshipModel.fromRawJson(String str) => SponsorshipModel.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
-    factory Sponsorship.fromJson(Map<String, dynamic> json) => Sponsorship(
+    factory SponsorshipModel.fromJson(Map<String, dynamic> json) => SponsorshipModel(
         id: json["id"],
         name: json["name"],
         email: json["email"],

@@ -19,7 +19,7 @@ class RemoteSponsorship {
       List<dynamic> body = jsonDecode(response.body);
       return body
           .map(
-            (value) => Sponsorship.fromJson(value),
+            (value) => SponsorshipModel.fromJson(value),
           )
           .toList();
     } else {
@@ -41,7 +41,7 @@ class RemoteSponsorship {
       List<dynamic> body = jsonDecode(response.body);
       return body
           .map(
-            (value) => Sponsorship.fromJson(value),
+            (value) => SponsorshipModel.fromJson(value),
           )
           .toList();
     } else {
@@ -61,7 +61,25 @@ class RemoteSponsorship {
 
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
-      return Sponsorship.fromJson(body);
+      return SponsorshipModel.fromJson(body);
+    } else {
+      throw ('Error bos');
+    }
+  }
+
+  Future getAuthDetail(token) async {
+    final response = await http.get(
+      Uri.parse("http://10.0.2.2:8080/api/sponsorship/detail"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      return SponsorshipModel.fromJson(body);
     } else {
       throw ('Error bos');
     }

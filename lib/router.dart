@@ -48,7 +48,7 @@ class _RoutersState extends State<Routers> {
     setState(() {
       role = prefs.getInt('role');
     });
-
+    // prefs.clear();
     return role;
   }
 

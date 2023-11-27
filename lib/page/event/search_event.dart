@@ -18,7 +18,7 @@ class SearchEvent extends StatefulWidget {
 
 class _SearchEventState extends State<SearchEvent> {
   List<CategoryModel> listCategory = [];
-  List<Sponsorship> listSponsorshipCategory = [];
+  List<SponsorshipModel> listSponsorshipCategory = [];
 
   String? token = '';
 
@@ -138,8 +138,8 @@ class _SearchEventState extends State<SearchEvent> {
                               width: 124,
                               height: 88,
                               decoration: BoxDecoration(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.circular(20)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20)),
                                   color: Colors.black12,
                                   image: DecorationImage(
                                       fit: BoxFit.cover,

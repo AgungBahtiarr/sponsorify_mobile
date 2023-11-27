@@ -19,7 +19,7 @@ class DashboardEvent extends StatefulWidget {
 }
 
 class _DashboardEventState extends State<DashboardEvent> {
-  List<Sponsorship> sponsorships = [];
+  List<SponsorshipModel> sponsorships = [];
   List<CategoryModel> categories = [];
 
   String? token;
@@ -48,7 +48,7 @@ class _DashboardEventState extends State<DashboardEvent> {
     setState(() {
       user = userDataResponse;
     });
-    List<Sponsorship> response = await RemoteSponsorship().getData(token);
+    List<SponsorshipModel> response = await RemoteSponsorship().getData(token);
     List<CategoryModel> responseCategory = await RemoteCategory().getCategory();
     setState(() {
       sponsorships = response;

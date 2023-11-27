@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-class ProposalModel {
+class ProposalSponsorshipModel {
   final int? id;
   final String? proposal;
   final dynamic message;
@@ -10,10 +10,10 @@ class ProposalModel {
   final int? idStatus;
   final DateTime? createdAt;
   final DateTime? updatedAt;
-  final Sponsorship? sponsorship;
   final Status? status;
+  final Event? event;
 
-  ProposalModel({
+  ProposalSponsorshipModel({
     this.id,
     this.proposal,
     this.message,
@@ -23,16 +23,17 @@ class ProposalModel {
     this.idStatus,
     this.createdAt,
     this.updatedAt,
-    this.sponsorship,
     this.status,
+    this.event,
   });
 
-  factory ProposalModel.fromRawJson(String str) =>
-      ProposalModel.fromJson(json.decode(str));
+  factory ProposalSponsorshipModel.fromRawJson(String str) =>
+      ProposalSponsorshipModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProposalModel.fromJson(Map<String, dynamic> json) => ProposalModel(
+  factory ProposalSponsorshipModel.fromJson(Map<String, dynamic> json) =>
+      ProposalSponsorshipModel(
         id: json["id"],
         proposal: json["proposal"],
         message: json["message"],
@@ -46,10 +47,8 @@ class ProposalModel {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
-        sponsorship: json["sponsorship"] == null
-            ? null
-            : Sponsorship.fromJson(json["sponsorship"]),
         status: json["status"] == null ? null : Status.fromJson(json["status"]),
+        event: json["event"] == null ? null : Event.fromJson(json["event"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -62,49 +61,42 @@ class ProposalModel {
         "id_status": idStatus,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
-        "sponsorship": sponsorship?.toJson(),
         "status": status?.toJson(),
+        "event": event?.toJson(),
       };
 }
 
-class Sponsorship {
+class Event {
   final int? id;
   final String? name;
-  final String? email;
   final String? description;
   final String? profilePhoto;
-  final String? address;
-  final int? idCategory;
+  final String? email;
   final int? idUsers;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  Sponsorship({
+  Event({
     this.id,
     this.name,
-    this.email,
     this.description,
     this.profilePhoto,
-    this.address,
-    this.idCategory,
+    this.email,
     this.idUsers,
     this.createdAt,
     this.updatedAt,
   });
 
-  factory Sponsorship.fromRawJson(String str) =>
-      Sponsorship.fromJson(json.decode(str));
+  factory Event.fromRawJson(String str) => Event.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Sponsorship.fromJson(Map<String, dynamic> json) => Sponsorship(
+  factory Event.fromJson(Map<String, dynamic> json) => Event(
         id: json["id"],
         name: json["name"],
-        email: json["email"],
         description: json["description"],
         profilePhoto: json["profile_photo"],
-        address: json["address"],
-        idCategory: json["id_category"],
+        email: json["email"],
         idUsers: json["id_users"],
         createdAt: json["created_at"] == null
             ? null
@@ -117,11 +109,9 @@ class Sponsorship {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "email": email,
         "description": description,
         "profile_photo": profilePhoto,
-        "address": address,
-        "id_category": idCategory,
+        "email": email,
         "id_users": idUsers,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
