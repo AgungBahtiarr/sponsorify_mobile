@@ -165,12 +165,16 @@ class _DashboardEventState extends State<DashboardEvent> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        sponsorships[0].name,
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                            color: Colors.white),
+                                      SizedBox(
+                                        width: 100,
+                                        child: Text(
+                                          overflow: TextOverflow.ellipsis,
+                                          sponsorships[0].name,
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                       Text(
                                         sponsorships[0].category.category,
@@ -327,11 +331,15 @@ class _DashboardEventState extends State<DashboardEvent> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    sponsorships[index].name,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width: 90,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      sponsorships[index].name,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                   Text(
                                     sponsorships[index].category.category,

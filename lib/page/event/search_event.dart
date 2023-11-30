@@ -108,7 +108,7 @@ class _SearchEventState extends State<SearchEvent> {
                 }),
           ),
           SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height / 1.7,
             // width: MediaQuery.of(context).size.width,
             child: ListView.builder(
                 itemCount: listSponsorshipCategory.length,
@@ -153,11 +153,15 @@ class _SearchEventState extends State<SearchEvent> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  listSponsorshipCategory[index].name,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600),
+                                SizedBox(
+                                  width: 90,
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    listSponsorshipCategory[index].name,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600),
+                                  ),
                                 ),
                                 Text(
                                   listSponsorshipCategory[index]

@@ -83,7 +83,7 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
 
   Future initFunction() async {
     setState(() {
-      isLoading = !isLoading;
+      isLoading = true;
     });
     Future.delayed(Duration.zero, () {
       var args =
@@ -94,7 +94,7 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
       });
     });
     setState(() {
-      isLoading = !isLoading;
+      isLoading = false;
     });
   }
 
@@ -397,7 +397,6 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                                       });
                                                     }
                                                   }
-
 
                                                   await addProposal()
                                                       .then((value) {

@@ -5,14 +5,14 @@ import 'package:sponsorify/data/datasource/remote_logout.dart';
 import 'package:sponsorify/data/datasource/remote_user.dart';
 import 'package:sponsorify/data/model/user_model.dart';
 
-class ProfileEvent extends StatefulWidget {
-  const ProfileEvent({super.key});
+class ProfileSponsorship extends StatefulWidget {
+  const ProfileSponsorship({super.key});
 
   @override
-  State<ProfileEvent> createState() => _ProfileEventState();
+  State<ProfileSponsorship> createState() => _ProfileSponsorshipState();
 }
 
-class _ProfileEventState extends State<ProfileEvent> {
+class _ProfileSponsorshipState extends State<ProfileSponsorship> {
   UserModel? user;
   String? token;
   bool isLoading = false;
@@ -125,7 +125,7 @@ class _ProfileEventState extends State<ProfileEvent> {
                   child: Column(children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/event_layout');
+                        Navigator.pushNamed(context, '/sponsorship_layout');
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -183,7 +183,7 @@ class _ProfileEventState extends State<ProfileEvent> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/myevent');
+                        Navigator.pushNamed(context, '/my_sponsorship');
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -221,7 +221,7 @@ class _ProfileEventState extends State<ProfileEvent> {
                                       width: 32,
                                     ),
                                     Text(
-                                      "My Event",
+                                      "My Sponsorship",
                                       style: GoogleFonts.poppins(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,
@@ -242,7 +242,8 @@ class _ProfileEventState extends State<ProfileEvent> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/edit_profile_event');
+                        Navigator.pushNamed(
+                            context, '/edit_profile_sponsorship');
                       },
                       child: Container(
                           decoration: BoxDecoration(

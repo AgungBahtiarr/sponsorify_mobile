@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sponsorify/page/sponsorship/dashboard_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/profile_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/proposal_sponsorship.dart';
 
 class SponsorshipLayout extends StatefulWidget {
   const SponsorshipLayout({super.key});
@@ -41,6 +43,8 @@ class _SponsorshipLayoutState extends State<SponsorshipLayout> {
       ),
       body: <Widget>[
         const DashboardSponsorship(),
+        const ProposalSponsorship(),
+        const ProfileSponsorship()
       ][currentPageIndex],
     );
   }

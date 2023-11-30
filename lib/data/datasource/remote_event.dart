@@ -22,6 +22,24 @@ class RemoteEvent {
     }
   }
 
+  Future getDetail(token, id) async {
+    final response = await http.get(
+      Uri.parse("http://10.0.2.2:8080/api/event/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      return EventModel.fromJson(body);
+    } else {
+      throw (response.statusCode);
+    }
+  }
+
   Future addData(token, name, email, description, image) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(

@@ -86,4 +86,30 @@ class RemoteProposal {
       return 'failed getting data';
     }
   }
+
+  Future updateProposal(token, id, message, idStatus) async {
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $token'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('http://10.0.2.2:8080/api/proposal/sponsorship/$id'));
+    request.bodyFields = {
+      '_method': 'patch',
+      'message': '$message',
+      'id_status': '$idStatus'
+    };
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      // print(await response.stream.bytesToString());
+      return true;
+    } else {
+      // print(response.reasonPhrase);
+      // print(response.statusCode);
+      return false;
+    }
+  }
 }

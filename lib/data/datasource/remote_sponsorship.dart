@@ -85,8 +85,8 @@ class RemoteSponsorship {
     }
   }
 
-  Future addData(
-      token, name, email, description, address, idCategory, image) async {
+  Future addData(token, name, email, description, address, idCategory,
+      [image]) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(
         'POST', Uri.parse('http://10.0.2.2:8080/api/sponsorship'));
@@ -122,5 +122,37 @@ class RemoteSponsorship {
 
     var body = jsonDecode(response.body);
     return body['count'];
+  }
+
+  Future editData(
+      token, idSponsorship, name, email, description, address, idCategory,
+      [profilPhoto]) async {
+    var headers = {'Authorization': 'Bearer $token'};
+    var request = http.MultipartRequest('POST',
+        Uri.parse('http://10.0.2.2:8080/api/sponsorship/$idSponsorship'));
+    request.fields.addAll({
+      '_method': 'patch',
+      'name': '$name',
+      'email': '$email',
+      'description': '$description',
+      'address': '$address',
+      'id_category': '$idCategory'
+    });
+
+    if (profilPhoto != null) {
+      request.files.add(
+          await http.MultipartFile.fromPath('profile_photo', '$profilPhoto'));
+    }
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+      return true;
+    } else {
+      print(response.reasonPhrase);
+      return false;
+    }
   }
 }

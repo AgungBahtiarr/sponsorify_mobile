@@ -13,6 +13,11 @@ import 'package:sponsorify/page/login.dart';
 import 'package:sponsorify/page/register.dart';
 import 'package:sponsorify/page/sponsorship/add_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/dashboard_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/detail_event.dart';
+import 'package:sponsorify/page/sponsorship/edit_profile_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/my_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/profile_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/proposal_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/sponsorship_layout.dart';
 
 class Routers extends StatefulWidget {
@@ -101,6 +106,12 @@ class _RoutersState extends State<Routers> {
         // Sponsorship
         '/dashboard_sponsorship': (context) => const DashboardSponsorship(),
         '/add_sponsorship': (context) => const AddSponsorship(),
+        '/proposal_sponsorship': (context) => const ProposalSponsorship(),
+        '/detail_event': (context) => const DetailEvent(),
+        '/profile_sponsorship': (context) => const ProfileSponsorship(),
+        '/edit_profile_sponsorship': (context) =>
+            const EditProfileSponsorship(),
+        '/my_sponsorship': (context) => const MySponsorship()
       },
     );
   }

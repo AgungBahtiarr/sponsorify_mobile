@@ -133,8 +133,8 @@ class _SavedEventState extends State<SavedEvent> {
                                 width: 124,
                                 height: 88,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        const BorderRadius.all(Radius.circular(20)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
                                     color: Colors.black12,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
@@ -263,11 +263,15 @@ class _SavedEventState extends State<SavedEvent> {
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                  Text(
-                                    "Status: ${proposals[index].status!.status}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
+                                  SizedBox(
+                                    width: 130,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "Status: ${proposals[index].status!.status}",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ],
                               ),

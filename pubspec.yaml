@@ -40,6 +40,9 @@ dependencies:
   shared_preferences: ^2.2.2
   file_picker: ^6.1.1
   dio: ^5.3.3
+  path_provider: ^2.1.1
+  permission_handler: ^11.1.0
+  flutter_file_downloader: ^1.1.4
 
 dev_dependencies:
   flutter_test:
