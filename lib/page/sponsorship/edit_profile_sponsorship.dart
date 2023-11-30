@@ -77,18 +77,14 @@ class _EditProfileSponsorshipState extends State<EditProfileSponsorship> {
   Future logout() async {
     final response = await RemoteLogout().logout(token);
     if (response == true) {
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Thank you ^_^'),
         backgroundColor: Colors.green,
       ));
-      // ignore: use_build_context_synchronously
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.clear();
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/login');
     } else {
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text('Failed'),
         backgroundColor: Colors.red,

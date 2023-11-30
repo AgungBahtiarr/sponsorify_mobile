@@ -139,8 +139,6 @@ class RemoteSponsorship {
       'id_category': '$idCategory'
     });
 
-    print(address);
-
     if (profilPhoto != null) {
       request.files.add(
           await http.MultipartFile.fromPath('profile_photo', '$profilPhoto'));
@@ -150,10 +148,8 @@ class RemoteSponsorship {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print('succcess ${response.statusCode}, $address');
       return true;
     } else {
-      print('gagal ${response.statusCode} $address');
       return false;
     }
   }
