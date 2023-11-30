@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -23,6 +25,7 @@ class _EditProfileSponsorshipState extends State<EditProfileSponsorship> {
   File? imageRaw;
 
   bool isLoading = false;
+  bool? isSuccess;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -298,18 +301,35 @@ class _EditProfileSponsorshipState extends State<EditProfileSponsorship> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             backgroundColor: const Color(0xff2ED892)),
-                        onPressed: () {
+                        onPressed: () async {
                           setState(() {
                             fullName = fullNameController.text;
                             email = emailController.text;
                           });
-                          editData(fullName, email);
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Success"),
-                            backgroundColor: Colors.green,
-                          ));
-                          getData();
+
+                          await editData(fullName, email).then((value) {
+                            setState(() {
+                              isSuccess = value;
+                            });
+                          });
+
+                          if (isSuccess == true) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Success"),
+                              backgroundColor: Colors.green,
+                            ));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Failed"),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+
+                          await getData();
+                          Navigator.pushReplacementNamed(
+                              context, '/edit_profile_sponsorship');
                         },
                         child: Text(
                           "Save",
