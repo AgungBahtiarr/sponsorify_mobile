@@ -22,27 +22,6 @@ class RemoteUser {
     }
   }
 
-  // Future editData(token, name, email, profilePhoto) async {
-  //   var headers = {'Authorization': 'Bearer $token'};
-  //   var request = http.MultipartRequest(
-  //       'POST', Uri.parse('http://10.0.2.2:8080/api/user'));
-  //   request.fields
-  //       .addAll({'name': '$name', 'email': '$email', '_method': 'patch'});
-  //   request.files.add(
-  //       await http.MultipartFile.fromPath('profile_photo', '$profilePhoto'));
-  //   request.headers.addAll(headers);
-
-  //   http.StreamedResponse response = await request.send();
-
-  //   if (response.statusCode == 200) {
-  //     print(await response.stream.bytesToString());
-  //     return true;
-  //   } else {
-  //     print(response.reasonPhrase);
-  //     return false;
-  //   }
-  // }
-
   Future editData(token, name, email, [profilePhoto]) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(

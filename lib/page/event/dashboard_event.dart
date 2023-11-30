@@ -114,7 +114,7 @@ class _DashboardEventState extends State<DashboardEvent> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '$userName',
+                                      '${user!.data!.name}',
                                       style: GoogleFonts.poppins(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,

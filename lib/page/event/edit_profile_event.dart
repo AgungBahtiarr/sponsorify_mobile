@@ -22,6 +22,7 @@ class _EditProfileEventState extends State<EditProfileEvent> {
   File? imageRaw;
 
   bool isLoading = false;
+  bool? isSuccess;
 
   TextEditingController fullNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -280,13 +281,28 @@ class _EditProfileEventState extends State<EditProfileEvent> {
                             fullName = fullNameController.text;
                             email = emailController.text;
                           });
-                          editData(fullName, email);
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Success"),
-                            backgroundColor: Colors.green,
-                          ));
+                          editData(fullName, email).then((value) {
+                            setState(() {
+                              isSuccess = value;
+                            });
+                          });
+
+                          if (isSuccess == true) {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Success"),
+                              backgroundColor: Colors.green,
+                            ));
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Failed"),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
                           getData();
-                          Navigator.pop(context);
+                          Navigator.pushReplacementNamed(
+                              context, '/edit_profile_event');
                         },
                         child: Text(
                           "Save",
