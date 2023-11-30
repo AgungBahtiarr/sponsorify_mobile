@@ -55,8 +55,6 @@ class _DetailEventState extends State<DetailEvent> {
           proposal = element;
         }
       }
-
-      print("$token , ${proposal!.id}");
     });
   }
 
@@ -226,7 +224,6 @@ class _DetailEventState extends State<DetailEvent> {
                             child: ElevatedButton(
                                 onPressed: () {
                                   fileDownload('${proposal!.event!.name}');
-                                  print(proposal!.proposal);
                                 },
                                 style: ElevatedButton.styleFrom(
                                     elevation: 0,

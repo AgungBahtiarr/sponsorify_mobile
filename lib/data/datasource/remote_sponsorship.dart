@@ -124,7 +124,7 @@ class RemoteSponsorship {
     return body['count'];
   }
 
-  Future editData(
+  Future<bool> editData(
       token, idSponsorship, name, email, description, address, idCategory,
       [profilPhoto]) async {
     var headers = {'Authorization': 'Bearer $token'};
@@ -139,6 +139,8 @@ class RemoteSponsorship {
       'id_category': '$idCategory'
     });
 
+    print(address);
+
     if (profilPhoto != null) {
       request.files.add(
           await http.MultipartFile.fromPath('profile_photo', '$profilPhoto'));
@@ -148,10 +150,10 @@ class RemoteSponsorship {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      print('succcess ${response.statusCode}, $address');
       return true;
     } else {
-      print(response.reasonPhrase);
+      print('gagal ${response.statusCode} $address');
       return false;
     }
   }

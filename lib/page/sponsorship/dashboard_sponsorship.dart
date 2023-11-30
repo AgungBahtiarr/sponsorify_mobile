@@ -33,7 +33,6 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       token = prefs.getString('token');
-      print(token);
     });
 
     final responseUser = await RemoteUser().getData(token);

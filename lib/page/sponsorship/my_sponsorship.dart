@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -17,6 +19,7 @@ class MySponsorship extends StatefulWidget {
 class _MySponsorshipState extends State<MySponsorship> {
   String? token;
   bool isLoading = false;
+  bool? isSuccess;
 
   String? name;
   String? email;
@@ -39,7 +42,6 @@ class _MySponsorshipState extends State<MySponsorship> {
     setState(() {
       token = prefs.getString('token');
     });
-    print(token);
 
     final response = await RemoteSponsorship().getAuthDetail(token);
     setState(() {
@@ -67,9 +69,24 @@ class _MySponsorshipState extends State<MySponsorship> {
   Future editData(
       token, idSponsorship, name, email, description, address, idCategory,
       [profilPhoto]) async {
-    final response = RemoteSponsorship().editData(token, idSponsorship, name,
-        email, description, address, idCategory, profilPhoto);
-    print(response);
+    final response = await RemoteSponsorship().editData(token, idSponsorship,
+        name, email, description, address, idCategory, profilPhoto);
+
+    setState(() {
+      isSuccess = response;
+    });
+
+    if (isSuccess == true) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Update Succes"),
+        backgroundColor: Colors.green,
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Update failed'),
+        backgroundColor: Colors.red,
+      ));
+    }
   }
 
   @override
