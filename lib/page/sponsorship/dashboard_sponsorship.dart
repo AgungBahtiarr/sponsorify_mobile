@@ -150,13 +150,13 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
                             child: Container(
                               height: 78,
                               width: 78,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: NetworkImage(
-                                          'https://picsum.photos/200')),
+                                          'http://10.0.2.2:8080/${sponsorship!.profilePhoto}')),
                                   shape: BoxShape.circle,
-                                  color: Color(0xff5f524a)),
+                                  color: const Color(0xff5f524a)),
                             ),
                           )
                         ]),
@@ -218,13 +218,13 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
                                   Container(
                                     height: 52,
                                     width: 52,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
-                                                'https://picsum.photos/200')),
+                                                'http://10.0.2.2:8080/${proposalHistory[index].event!.profilePhoto}')),
                                         shape: BoxShape.circle,
-                                        color: Color(0xff5f524a)),
+                                        color: const Color(0xff5f524a)),
                                   ),
                                   Column(
                                     crossAxisAlignment:

@@ -257,11 +257,15 @@ class _SavedEventState extends State<SavedEvent> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    "${proposals[index].sponsorship!.name}",
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width: 130,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      "${proposals[index].sponsorship!.name}",
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 130,

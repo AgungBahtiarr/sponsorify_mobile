@@ -92,13 +92,13 @@ class _ProposalSponsorshipState extends State<ProposalSponsorship> {
                                   Container(
                                     width: 78,
                                     height: 78,
-                                    decoration: const BoxDecoration(
+                                    decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(
-                                                'https://picsum.photos/200')),
+                                                'http://10.0.2.2:8080/${proposalPending[index].event!.profilePhoto}')),
                                         shape: BoxShape.circle,
-                                        color: Color(0xffD9D9D9)),
+                                        color: const Color(0xffD9D9D9)),
                                   ),
                                   Column(
                                     crossAxisAlignment:
