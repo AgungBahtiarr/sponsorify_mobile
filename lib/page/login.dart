@@ -201,8 +201,12 @@ class _LoginState extends State<Login> {
                           setState(() {
                             emailController.text = '';
                             passwordController.text = '';
-                            setPref(data!.token, data!.role, data!.user!.name,
-                                data!.user!.profilePhoto, data!.user!.id);
+                            setPref(
+                                data!.token,
+                                data!.user!.name,
+                                data!.user!.profilePhoto,
+                                data!.user!.id,
+                                data!.role);
                           });
                           debugPrint(data!.user!.name);
                           ScaffoldMessenger.of(context)

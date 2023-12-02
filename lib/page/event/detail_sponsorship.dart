@@ -82,10 +82,7 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
   }
 
   Future initFunction() async {
-    setState(() {
-      isLoading = true;
-    });
-    Future.delayed(Duration.zero, () {
+    await Future.delayed(Duration.zero, () {
       var args =
           ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
       setState(() {
@@ -93,14 +90,17 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
         getDetail(idSponsorship);
       });
     });
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
   void initState() {
+    setState(() {
+      isLoading = true;
+    });
     initFunction();
+    setState(() {
+      isLoading = false;
+    });
     super.initState();
   }
 

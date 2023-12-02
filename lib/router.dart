@@ -35,6 +35,8 @@ class _RoutersState extends State<Routers> {
   bool? isLogin;
   String? nextPage;
 
+  bool isLoading = false;
+
   Future<bool> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -78,7 +80,13 @@ class _RoutersState extends State<Routers> {
 
   @override
   void initState() {
+    setState(() {
+      isLoading = true;
+    });
     cekLogin();
+    setState(() {
+      isLoading = false;
+    });
     super.initState();
   }
 
