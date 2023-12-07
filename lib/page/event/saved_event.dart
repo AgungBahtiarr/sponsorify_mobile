@@ -212,79 +212,108 @@ class _SavedEventState extends State<SavedEvent> {
                   }),
             ),
             Container(
-              padding: const EdgeInsets.only(left: 32, right: 32, top: 32),
-              child: ListView.builder(
-                  itemCount: proposals.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: Container(
-                        width: 396,
-                        height: 100,
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 16,
-                                offset: Offset(0, 4),
-                                spreadRadius: -1,
-                              )
-                            ]),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(6),
-                              child: Container(
-                                width: 124,
-                                height: 88,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                    color: Colors.black12,
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            'http://10.0.2.2:8080/${proposals[index].sponsorship!.profilePhoto}'))),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 18, right: 42),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
+              padding: const EdgeInsets.only(left: 32, right: 32, top: 18),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: Container(
+                      height: 62,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(width: 2, color: Colors.amber)),
+                      child: Center(
+                          child: Text(
+                        textAlign: TextAlign.center,
+                        "Note: After Status Accepted Please wait email from sponsorship",
+                        style: GoogleFonts.poppins(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height / 2,
+                    child: ListView.builder(
+                        itemCount: proposals.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Container(
+                              width: 396,
+                              height: 100,
+                              decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x3F000000),
+                                      blurRadius: 16,
+                                      offset: Offset(0, 4),
+                                      spreadRadius: -1,
+                                    )
+                                  ]),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  SizedBox(
-                                    width: 130,
-                                    child: Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      "${proposals[index].sponsorship!.name}",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600),
+                                  Padding(
+                                    padding: const EdgeInsets.all(6),
+                                    child: Container(
+                                      width: 124,
+                                      height: 88,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(20)),
+                                          color: Colors.black12,
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  'http://10.0.2.2:8080/${proposals[index].sponsorship!.profilePhoto}'))),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 130,
-                                    child: Text(
-                                      overflow: TextOverflow.ellipsis,
-                                      "Status: ${proposals[index].status!.status}",
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 18, right: 42),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        SizedBox(
+                                          width: 130,
+                                          child: Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            "${proposals[index].sponsorship!.name}",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 130,
+                                          child: Text(
+                                            overflow: TextOverflow.ellipsis,
+                                            "Status: ${proposals[index].status!.status}",
+                                            style: GoogleFonts.poppins(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
+                          );
+                        }),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

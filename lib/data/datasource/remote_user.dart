@@ -6,7 +6,7 @@ import 'package:sponsorify/data/model/user_model.dart';
 class RemoteUser {
   Future getData(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/user"),
+      Uri.parse("http://10.0.2.2:8080/api/user/current"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -25,7 +25,7 @@ class RemoteUser {
   Future editData(token, name, email, [profilePhoto]) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://10.0.2.2:8080/api/user'));
+        'POST', Uri.parse('http://10.0.2.2:8080/api/user/current'));
     request.fields
         .addAll({'name': '$name', 'email': '$email', '_method': 'patch'});
     if (profilePhoto != null) {
