@@ -306,7 +306,9 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                               child: DropdownMenu<String>(
                                                 width: 330,
                                                 initialSelection:
-                                                    eventModel.first,
+                                                    eventModel.isEmpty
+                                                        ? "Add Event"
+                                                        : eventModel.first,
                                                 onSelected: (String? value) {
                                                   setState(() {
                                                     dropDownValue = value!;

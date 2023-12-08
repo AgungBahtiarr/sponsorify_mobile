@@ -40,8 +40,6 @@ class _DashboardEventState extends State<DashboardEvent> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       token = prefs.getString('token');
-      userName = prefs.getString('userName');
-      urlPhoto = prefs.getString("urlPhoto");
     });
 
     final userDataResponse = await RemoteUser().getData(token);

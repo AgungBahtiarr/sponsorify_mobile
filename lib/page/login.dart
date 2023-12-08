@@ -36,12 +36,10 @@ class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  Future<void> setPref([token, userName, urlPhoto, authId, role]) async {
+  Future<void> setPref([token, authId, role]) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('token', token);
     prefs.setInt('role', role);
-    prefs.setString('userName', userName);
-    prefs.setString('urlPhoto', urlPhoto);
     prefs.setInt('authId', authId);
   }
 
@@ -201,12 +199,7 @@ class _LoginState extends State<Login> {
                           setState(() {
                             emailController.text = '';
                             passwordController.text = '';
-                            setPref(
-                                data!.token,
-                                data!.user!.name,
-                                data!.user!.profilePhoto,
-                                data!.user!.id,
-                                data!.role);
+                            setPref(data!.token, data!.user!.id, data!.role);
                           });
                           debugPrint(data!.user!.name);
                           ScaffoldMessenger.of(context)
