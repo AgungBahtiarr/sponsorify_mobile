@@ -237,11 +237,15 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                                     size: 26,
                                     color: Color(0xffE07777),
                                   ),
-                                  Text(
-                                    sponsorship!.address,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
+                                  SizedBox(
+                                    width: 110,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      sponsorship!.address,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   )
                                 ],
                               ),

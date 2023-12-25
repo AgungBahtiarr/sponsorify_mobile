@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sponsorify/data/datasource/remote_event.dart';
 import 'package:sponsorify/data/datasource/remote_proposal.dart';
+import 'package:sponsorify/data/datasource/remote_transaction.dart';
 import 'package:sponsorify/data/model/event_model.dart';
 import 'package:sponsorify/data/model/proposal_sponsorship_model.dart';
 import 'package:flutter_file_downloader/flutter_file_downloader.dart';
@@ -25,7 +26,9 @@ class _DetailEventState extends State<DetailEvent> {
   bool isLoading = false;
 
   TextEditingController messageController = TextEditingController();
+  TextEditingController fundsController = TextEditingController();
   String? message;
+  String? funds;
 
   Future getData() async {
     setState(() {
@@ -56,6 +59,14 @@ class _DetailEventState extends State<DetailEvent> {
         }
       }
     });
+  }
+
+  Future addTransaction(
+      idEvent, idSponsorship, idProposal, sponsorshipFunds) async {
+    final response = await RemoteTransaction().addTransaction(
+        token, idEvent, idSponsorship, idProposal, sponsorshipFunds);
+
+    return response;
   }
 
   Future updateData(idStatus, message, idProposal) async {
@@ -118,12 +129,12 @@ class _DetailEventState extends State<DetailEvent> {
                     child: Column(
                       children: [
                         Container(
-                          decoration: const BoxDecoration(
+                          decoration: BoxDecoration(
                               color: Colors.amber,
                               image: DecorationImage(
                                   fit: BoxFit.cover,
                                   image: NetworkImage(
-                                      'https://picsum.photos/200'))),
+                                      'http://10.0.2.2:8080/${event!.profilePhoto}'))),
                           height: 449,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 52),
@@ -147,7 +158,7 @@ class _DetailEventState extends State<DetailEvent> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 42, vertical: 8),
                                   child: Text(
-                                    "Detail Sponsorship",
+                                    "Detail Event",
                                     style: GoogleFonts.poppins(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w600,
@@ -361,6 +372,8 @@ class _DetailEventState extends State<DetailEvent> {
                           message = messageController.text;
                         });
                         await updateData(3, message, proposal!.id);
+                        await addTransaction(idDetailEvent,
+                            proposal!.idSponsorship, idDetailProposal, funds);
                         // ignore: use_build_context_synchronously
                         Navigator.pushReplacementNamed(
                             context, '/sponsorship_layout');
@@ -383,123 +396,168 @@ class _DetailEventState extends State<DetailEvent> {
     return showModalBottomSheet(
         context: context,
         builder: (context) {
-          return SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 2,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Text("Message",
-                      style: GoogleFonts.poppins(
-                          fontSize: 18, fontWeight: FontWeight.w600)),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextField(
-                    controller: messageController,
-                    enabled: true,
-                    decoration: const InputDecoration(
-                        hintText: "Enter your message for event",
-                        prefix: SizedBox(
-                          width: 25,
-                        ),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 0, 0, 0.612),
-                                width: 2)),
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 0, 0, 0.612),
-                                width: 2)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 0, 0, 0.612),
-                                width: 2))),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          minimumSize:
-                              Size(MediaQuery.of(context).size.width, 42),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: const Color(0xff2ED892)),
-                      onPressed: () async {
-                        setState(() {
-                          message = messageController.text;
-                        });
-                        await updateData(2, message, proposal!.id);
-                        // ignore: use_build_context_synchronously
-                        ScaffoldMessenger.of(context).showMaterialBanner(
-                          MaterialBanner(
-                            content: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 18),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.amber,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Please send an email to this address for further processing',
-                                        style:
-                                            GoogleFonts.poppins(fontSize: 18),
-                                      ),
-                                      Text(
-                                        "${proposal!.event!.email}",
-                                        style: GoogleFonts.poppins(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      )
-                                    ],
+          return SingleChildScrollView(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height / 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Text("Message",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      controller: messageController,
+                      enabled: true,
+                      decoration: const InputDecoration(
+                          hintText: "Enter your message for event",
+                          prefix: SizedBox(
+                            width: 25,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2))),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text("Budget Plan",
+                        style: GoogleFonts.poppins(
+                            fontSize: 18, fontWeight: FontWeight.w600)),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    TextField(
+                      controller: fundsController,
+                      enabled: true,
+                      decoration: const InputDecoration(
+                          hintText: "Plan for the amount of budget",
+                          prefix: SizedBox(
+                            width: 25,
+                          ),
+                          border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              borderSide: BorderSide(
+                                  color: Color.fromRGBO(0, 0, 0, 0.612),
+                                  width: 2))),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            minimumSize:
+                                Size(MediaQuery.of(context).size.width, 42),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: const Color(0xff2ED892)),
+                        onPressed: () async {
+                          setState(() {
+                            message = messageController.text;
+                            funds = fundsController.text;
+                          });
+                          await updateData(2, message, proposal!.id);
+                          await addTransaction(idDetailEvent,
+                              proposal!.idSponsorship, idDetailProposal, funds);
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showMaterialBanner(
+                            MaterialBanner(
+                              content: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 18),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.amber,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Please send an email to this address for further processing',
+                                          style:
+                                              GoogleFonts.poppins(fontSize: 18),
+                                        ),
+                                        Text(
+                                          "${proposal!.event!.email}",
+                                          style: GoogleFonts.poppins(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
+                              actions: <Widget>[
+                                Builder(builder: (context) {
+                                  return TextButton(
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .clearMaterialBanners();
+                                    },
+                                    child: Text(
+                                      'DISMISS',
+                                      style: GoogleFonts.poppins(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  );
+                                }),
+                              ],
                             ),
-                            actions: <Widget>[
-                              Builder(builder: (context) {
-                                return TextButton(
-                                  onPressed: () {
-                                    ScaffoldMessenger.of(context)
-                                        .clearMaterialBanners();
-                                  },
-                                  child: Text(
-                                    'DISMISS',
-                                    style: GoogleFonts.poppins(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                );
-                              }),
-                            ],
-                          ),
-                        );
-                        // ignore: use_build_context_synchronously
-                        Navigator.pushReplacementNamed(
-                            context, '/sponsorship_layout');
-                      },
-                      child: Text(
-                        "Confirm",
-                        style: GoogleFonts.poppins(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ))
-                ],
+                          );
+                          // ignore: use_build_context_synchronously
+                          Navigator.pushReplacementNamed(
+                              context, '/sponsorship_layout');
+                        },
+                        child: Text(
+                          "Confirm",
+                          style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        ))
+                  ],
+                ),
               ),
             ),
           );
