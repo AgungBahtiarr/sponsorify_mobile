@@ -125,7 +125,7 @@ class _ProfileSponsorshipState extends State<ProfileSponsorship> {
                   child: Column(children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.pushNamed(context, '/sponsorship_layout');
+                        Navigator.pushNamed(context, '/history_transaction');
                       },
                       child: Container(
                           decoration: BoxDecoration(
@@ -154,7 +154,7 @@ class _ProfileSponsorshipState extends State<ProfileSponsorship> {
                                           shape: BoxShape.circle,
                                           color: Color(0xff372E1D)),
                                       child: const Icon(
-                                        Icons.home_rounded,
+                                        Icons.refresh,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -162,7 +162,7 @@ class _ProfileSponsorshipState extends State<ProfileSponsorship> {
                                       width: 32,
                                     ),
                                     Text(
-                                      "Home",
+                                      "History",
                                       style: GoogleFonts.poppins(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

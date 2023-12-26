@@ -156,7 +156,7 @@ class _DetailEventState extends State<DetailEvent> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 42, vertical: 8),
+                                      horizontal: 82, vertical: 8),
                                   child: Text(
                                     "Detail Event",
                                     style: GoogleFonts.poppins(

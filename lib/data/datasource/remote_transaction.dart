@@ -1,6 +1,49 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
+import 'package:sponsorify/data/model/transaction_model.dart';
 
 class RemoteTransaction {
+  Future getTransaction(token) async {
+    final response = await http.get(
+      Uri.parse("http://10.0.2.2:8080/api/transaction"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      return body
+          .map(
+            (value) => Transaction.fromJson(value),
+          )
+          .toList();
+    } else {
+      throw ('error bos');
+    }
+  }
+
+  Future getDetailTransaction(token, id) async {
+    final response = await http.get(
+      Uri.parse("http://10.0.2.2:8080/api/transaction/$id"),
+      headers: <String, String>{
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var body = jsonDecode(response.body);
+      return Transaction.fromJson(body);
+    } else {
+      throw ('error bos');
+    }
+  }
+
   Future addTransaction(
       token, idEvent, idSponsorship, idProposal, sponsorshipFunds) async {
     var headers = {

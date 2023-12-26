@@ -26,7 +26,7 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
   bool isLoadingCount = false;
 
   var count = 0;
-  
+
   getData() async {
     setState(() {
       isLoading = true;
@@ -43,6 +43,7 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
     final responseSponsor = await RemoteSponsorship().getAuthDetail(token);
     setState(() {
       sponsorship = responseSponsor;
+      prefs.setInt('id_sponsorship', sponsorship!.id);
       isLoading = false;
     });
 

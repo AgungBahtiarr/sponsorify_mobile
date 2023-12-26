@@ -14,7 +14,9 @@ import 'package:sponsorify/page/register.dart';
 import 'package:sponsorify/page/sponsorship/add_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/dashboard_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/detail_event.dart';
+import 'package:sponsorify/page/sponsorship/detail_transaction.dart';
 import 'package:sponsorify/page/sponsorship/edit_profile_sponsorship.dart';
+import 'package:sponsorify/page/sponsorship/history_transaction.dart';
 import 'package:sponsorify/page/sponsorship/my_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/profile_sponsorship.dart';
 import 'package:sponsorify/page/sponsorship/proposal_sponsorship.dart';
@@ -119,7 +121,9 @@ class _RoutersState extends State<Routers> {
         '/profile_sponsorship': (context) => const ProfileSponsorship(),
         '/edit_profile_sponsorship': (context) =>
             const EditProfileSponsorship(),
-        '/my_sponsorship': (context) => const MySponsorship()
+        '/my_sponsorship': (context) => const MySponsorship(),
+        '/history_transaction': (context) => const HistoryTransaction(),
+        '/detail_transaction': (context) => const DetailTransaction()
       },
     );
   }
