@@ -112,7 +112,7 @@ class _DashboardEventState extends State<DashboardEvent> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      width: 200,
+                                      width: 270,
                                       child: Text(
                                         overflow: TextOverflow.ellipsis,
                                         '${user!.data!.name}',
@@ -168,7 +168,7 @@ class _DashboardEventState extends State<DashboardEvent> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        width: 100,
+                                        width: 130,
                                         child: Text(
                                           overflow: TextOverflow.ellipsis,
                                           sponsorships[0].name,
@@ -188,13 +188,15 @@ class _DashboardEventState extends State<DashboardEvent> {
                                       SizedBox(
                                         width: 127,
                                         child: Text(
+                                          overflow: TextOverflow.ellipsis,
                                           sponsorships[0].description,
                                           style: GoogleFonts.poppins(
-                                              color: Colors.white, fontSize: 8),
+                                              color: Colors.white,
+                                              fontSize: 12),
                                         ),
                                       ),
                                       const SizedBox(
-                                        height: 8,
+                                        height: 18,
                                       ),
                                       SizedBox(
                                         height: 24,
@@ -232,7 +234,7 @@ class _DashboardEventState extends State<DashboardEvent> {
                   Positioned(
                     top: 300,
                     child: Container(
-                        height: 90,
+                        height: 70,
                         width: 328,
                         decoration: const BoxDecoration(
                             boxShadow: [
@@ -252,23 +254,32 @@ class _DashboardEventState extends State<DashboardEvent> {
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
+                                  const EdgeInsets.symmetric(horizontal: 8),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       color: const Color(0xFF372E1D),
+                                  //       borderRadius:
+                                  //           BorderRadius.circular(10)),
+                                  //   width: 50,
+                                  //   height: 50,
+                                  // ),
                                   Container(
                                     decoration: BoxDecoration(
-                                        color: const Color(0xFF372E1D),
+                                        color: Color(0xFF37271D),
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    width: 50,
-                                    height: 50,
-                                  ),
-                                  Text(
-                                    categories[index].category,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w500),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 18, vertical: 12),
+                                    child: Text(
+                                      categories[index].category,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
                                   )
                                 ],
                               ),
@@ -279,7 +290,7 @@ class _DashboardEventState extends State<DashboardEvent> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 72, bottom: 12, left: 34),
+                padding: const EdgeInsets.only(top: 52, bottom: 12, left: 34),
                 child: Text(
                   "Recommended",
                   style: GoogleFonts.poppins(
@@ -427,31 +438,5 @@ class _DashboardEventState extends State<DashboardEvent> {
               )
             ]),
           );
-  }
-}
-
-class SponsorCategory extends StatelessWidget {
-  const SponsorCategory({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: const Color(0xFF372E1D),
-              borderRadius: BorderRadius.circular(10)),
-          width: 50,
-          height: 50,
-        ),
-        Text(
-          "Food",
-          style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w500),
-        )
-      ],
-    );
   }
 }
