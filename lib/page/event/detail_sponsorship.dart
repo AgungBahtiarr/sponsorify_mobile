@@ -63,6 +63,9 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
   }
 
   Future getDetail(id) async {
+    setState(() {
+      isLoading = true;
+    });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       token = prefs.getString('token');
@@ -78,6 +81,10 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
       for (var event in events) {
         eventModel.add(event.name);
       }
+    });
+
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -211,11 +218,15 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    sponsorship!.name,
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width: 200,
+                                    child: Text(
+                                      overflow: TextOverflow.fade,
+                                      sponsorship!.name,
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                   Text(
                                     sponsorship!.category.category,
@@ -229,7 +240,7 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.only(top: 44, right: 35),
+                                  const EdgeInsets.only(top: 24, right: 10),
                               child: Row(
                                 children: [
                                   const Icon(

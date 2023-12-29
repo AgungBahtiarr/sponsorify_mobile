@@ -149,11 +149,15 @@ class _SavedEventState extends State<SavedEvent> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    '${saveds[index].sponsorship!.name}',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width: 130,
+                                    child: Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      '${saveds[index].sponsorship!.name}',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                   Text(
                                     'Apply Now',
@@ -296,11 +300,11 @@ class _SavedEventState extends State<SavedEvent> {
                                         SizedBox(
                                           width: 130,
                                           child: Text(
-                                            overflow: TextOverflow.ellipsis,
+                                            // overflow: TextOverflow.ellipsis,
                                             "Status: ${proposals[index].status!.status}",
                                             style: GoogleFonts.poppins(
                                                 fontSize: 16,
-                                                fontWeight: FontWeight.w500),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ],

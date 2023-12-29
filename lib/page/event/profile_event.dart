@@ -92,12 +92,16 @@ class _ProfileEventState extends State<ProfileEvent> {
                       const SizedBox(
                         height: 18,
                       ),
-                      Text(
-                        "${user!.data!.name}",
-                        style: GoogleFonts.poppins(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          "${user!.data!.name}",
+                          style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
+                        ),
                       ),
                       const SizedBox(
                         height: 24,

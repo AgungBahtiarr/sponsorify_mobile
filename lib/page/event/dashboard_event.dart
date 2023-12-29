@@ -111,12 +111,16 @@ class _DashboardEventState extends State<DashboardEvent> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      '${user!.data!.name}',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white),
+                                    SizedBox(
+                                      width: 200,
+                                      child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        '${user!.data!.name}',
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                     Text('Wellcome back',
                                         style: GoogleFonts.poppins(

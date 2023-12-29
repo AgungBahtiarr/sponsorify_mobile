@@ -130,12 +130,16 @@ class _DashboardSponsorshipState extends State<DashboardSponsorship> {
                                 const SizedBox(
                                   height: 12,
                                 ),
-                                Text(
-                                  sponsorship!.name,
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
+                                SizedBox(
+                                  width: 200,
+                                  child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    sponsorship!.name,
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
                                 ),
                                 Text(
                                   sponsorship!.email,
