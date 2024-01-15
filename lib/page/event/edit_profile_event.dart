@@ -285,7 +285,6 @@ class _EditProfileEventState extends State<EditProfileEvent> {
                             setState(() {
                               isSuccess = value;
                             });
-                            print(isSuccess);
                             if (isSuccess == true) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(

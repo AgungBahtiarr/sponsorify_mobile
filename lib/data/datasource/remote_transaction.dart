@@ -64,10 +64,8 @@ class RemoteTransaction {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 201) {
-      print(await response.stream.bytesToString());
       return true;
     } else {
-      print(response.reasonPhrase);
       return false;
     }
   }

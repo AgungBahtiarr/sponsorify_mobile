@@ -91,7 +91,7 @@ class _HistoryTransactionState extends State<HistoryTransaction> {
                                         image: NetworkImage(
                                             'http://10.0.2.2:8080/${transactions[index].event!.profilePhoto}')),
                                     shape: BoxShape.circle,
-                                    color: Color(0xffD9D9D9)),
+                                    color: const Color(0xffD9D9D9)),
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
