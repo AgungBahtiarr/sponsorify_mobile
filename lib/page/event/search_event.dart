@@ -20,6 +20,8 @@ class _SearchEventState extends State<SearchEvent> {
   List<CategoryModel> listCategory = [];
   List<SponsorshipModel> listSponsorshipCategory = [];
 
+  TextEditingController searchController = TextEditingController();
+
   String? token = '';
 
   bool? isSaved;
@@ -35,6 +37,13 @@ class _SearchEventState extends State<SearchEvent> {
     setState(() {
       listSponsorshipCategory = responseAll;
       listCategory = responCategory;
+    });
+  }
+
+  Future searchSponsorship(search) async {
+    final response = await RemoteSponsorship().search(token, search);
+    setState(() {
+      listSponsorshipCategory = response;
     });
   }
 
@@ -72,7 +81,30 @@ class _SearchEventState extends State<SearchEvent> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24),
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Text(
+              "Search",
+              style: GoogleFonts.poppins(
+                  fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+          ),
+          TextField(
+              controller: searchController,
+              decoration: const InputDecoration(
+                  hintText: 'Search Sponsorship...',
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide:
+                          BorderSide(color: Color(0xff372E1D), width: 2)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide:
+                          BorderSide(color: Color(0xff372E1D), width: 2))),
+              onChanged: (p) {
+                searchSponsorship(searchController.text);
+              }),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14),
             child: Text(
               "Category",
               style: GoogleFonts.poppins(

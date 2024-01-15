@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/login_model.dart';
 
 class RemoteLogin {
   Future login(LoginModel user) async {
-    final response = await http.post(
-        Uri.parse('http://10.0.2.2:8080/api/login'),
+    final response = await http.post(Uri.parse('${dotenv.env['API_URL']}login'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8'
         },

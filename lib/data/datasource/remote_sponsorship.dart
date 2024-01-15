@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/sponsorship_model.dart';
 
 class RemoteSponsorship {
   Future getData(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/sponsorship"),
+      Uri.parse("${dotenv.env['API_URL']}sponsorship"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -29,7 +30,7 @@ class RemoteSponsorship {
 
   Future getDataWithCategory(token, id) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/sponsorship/category/$id"),
+      Uri.parse("${dotenv.env['API_URL']}sponsorship/category/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -51,7 +52,7 @@ class RemoteSponsorship {
 
   Future getDetail(token, id) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/sponsorship/$id"),
+      Uri.parse("${dotenv.env['API_URL']}sponsorship/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -69,7 +70,7 @@ class RemoteSponsorship {
 
   Future getAuthDetail(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/sponsorship/detail"),
+      Uri.parse("${dotenv.env['API_URL']}sponsorship/detail"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -89,7 +90,7 @@ class RemoteSponsorship {
       [image]) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://10.0.2.2:8080/api/sponsorship'));
+        'POST', Uri.parse('${dotenv.env['API_URL']}sponsorship'));
     request.fields.addAll({
       'name': '$name',
       'email': '$email',
@@ -118,7 +119,7 @@ class RemoteSponsorship {
 
   Future<int> count(id) async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:8080/api/sponsorship/count/$id'));
+        .get(Uri.parse('${dotenv.env['API_URL']}sponsorship/count/$id'));
 
     var body = jsonDecode(response.body);
     return body['count'];
@@ -129,7 +130,7 @@ class RemoteSponsorship {
       [profilPhoto]) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest('POST',
-        Uri.parse('http://10.0.2.2:8080/api/sponsorship/$idSponsorship'));
+        Uri.parse('${dotenv.env['API_URL']}sponsorship/$idSponsorship'));
     request.fields.addAll({
       '_method': 'patch',
       'name': '$name',
@@ -151,6 +152,27 @@ class RemoteSponsorship {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future search(token, search) async {
+    List<SponsorshipModel> sponsorships = [];
+    var headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Authorization': 'Bearer $token'
+    };
+    var request = http.Request(
+        'POST', Uri.parse('${dotenv.env['API_URL']}sponsorship/search'));
+    request.bodyFields = {'search': search};
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(await response.stream.bytesToString());
+      return body.map((value) => SponsorshipModel.fromJson(value)).toList();
+    } else {
+      return sponsorships;
     }
   }
 }

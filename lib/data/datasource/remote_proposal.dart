@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/proposal_model.dart';
 import 'package:sponsorify/data/model/proposal_sponsorship_model.dart';
@@ -6,7 +7,7 @@ import 'package:sponsorify/data/model/proposal_sponsorship_model.dart';
 class RemoteProposal {
   Future getData(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/proposal"),
+      Uri.parse("${dotenv.env['API_URL']}proposal"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -27,7 +28,7 @@ class RemoteProposal {
 
   Future getProposalSponsorship(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/proposal/sponsorship"),
+      Uri.parse("${dotenv.env['API_URL']}proposal/sponsorship"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -49,7 +50,7 @@ class RemoteProposal {
   Future addProposal(proposal, token, idSponsorship, idEvent, idUser) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://10.0.2.2:8080/api/proposal'));
+        'POST', Uri.parse('${dotenv.env['API_URL']}proposal'));
     request.fields.addAll({
       'id_sponsorship': '$idSponsorship',
       'id_event': '$idEvent',
@@ -70,7 +71,7 @@ class RemoteProposal {
 
   Future countProposal(token) async {
     final response = await http.get(
-      Uri.parse('http://10.0.2.2:8080/api/proposal/sponsorship/count'),
+      Uri.parse('${dotenv.env['API_URL']}proposal/sponsorship/count'),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -93,7 +94,7 @@ class RemoteProposal {
       'Authorization': 'Bearer $token'
     };
     var request = http.Request(
-        'POST', Uri.parse('http://10.0.2.2:8080/api/proposal/sponsorship/$id'));
+        'POST', Uri.parse('${dotenv.env['API_URL']}proposal/sponsorship/$id'));
     request.bodyFields = {
       '_method': 'patch',
       'message': '$message',

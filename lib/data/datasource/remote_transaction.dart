@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/transaction_model.dart';
 
 class RemoteTransaction {
   Future getTransaction(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/transaction"),
+      Uri.parse("${dotenv.env['API_URL']}transaction"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -28,7 +29,7 @@ class RemoteTransaction {
 
   Future getDetailTransaction(token, id) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/transaction/$id"),
+      Uri.parse("${dotenv.env['API_URL']}transaction/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -51,7 +52,7 @@ class RemoteTransaction {
       'Authorization': 'Bearer $token'
     };
     var request =
-        http.Request('POST', Uri.parse('http://10.0.2.2:8080/api/transaction'));
+        http.Request('POST', Uri.parse('${dotenv.env['API_URL']}transaction'));
     request.bodyFields = {
       'id_event': '$idEvent',
       'id_sponsorship': '$idSponsorship',

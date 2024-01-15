@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:sponsorify/data/model/event_model.dart';
 
 class RemoteEvent {
   Future getData(token) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/event"),
+      Uri.parse("${dotenv.env['API_URL']}api/event"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -24,7 +25,7 @@ class RemoteEvent {
 
   Future getDetail(token, id) async {
     final response = await http.get(
-      Uri.parse("http://10.0.2.2:8080/api/event/$id"),
+      Uri.parse("${dotenv.env['API_URL']}event/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -43,7 +44,7 @@ class RemoteEvent {
   Future addData(token, name, email, description, image) async {
     var headers = {'Authorization': 'Bearer $token'};
     var request = http.MultipartRequest(
-        'POST', Uri.parse('http://10.0.2.2:8080/api/event'));
+        'POST', Uri.parse('${dotenv.env['API_URL']}event'));
     request.fields.addAll({'name': name, 'description': name, 'email': email});
     request.files.add(
         await http.MultipartFile.fromPath('profile_photo', image.toString()));
@@ -60,7 +61,7 @@ class RemoteEvent {
 
   Future deleteData(token, id) async {
     final response = await http.delete(
-      Uri.parse("http://10.0.2.2:8080/api/event/$id"),
+      Uri.parse("${dotenv.env['API_URL']}event/$id"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
