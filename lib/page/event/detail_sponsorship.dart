@@ -101,13 +101,13 @@ class _DetailSponsorshipState extends State<DetailSponsorship> {
 
   @override
   void initState() {
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
     initFunction();
-    setState(() {
-      isLoading = false;
-    });
+    // setState(() {
+    //   isLoading = false;
+    // });
     super.initState();
   }
 

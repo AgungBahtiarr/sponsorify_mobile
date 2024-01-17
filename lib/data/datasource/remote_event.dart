@@ -6,7 +6,7 @@ import 'package:sponsorify/data/model/event_model.dart';
 class RemoteEvent {
   Future getData(token) async {
     final response = await http.get(
-      Uri.parse("${dotenv.env['API_URL']}api/event"),
+      Uri.parse("${dotenv.env['API_URL']}event"),
       headers: <String, String>{
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -16,7 +16,6 @@ class RemoteEvent {
 
     if (response.statusCode == 200) {
       List<dynamic> body = jsonDecode(response.body);
-
       return body.map((json) => EventModel.fromJson(json)).toList();
     } else {
       throw (response.statusCode);
