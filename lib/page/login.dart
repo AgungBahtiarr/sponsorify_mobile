@@ -69,14 +69,6 @@ class _LoginState extends State<Login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Color(0xffE3E3E3)),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.arrow_back),
-                  )),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 50),
                 child: SizedBox(
@@ -162,14 +154,9 @@ class _LoginState extends State<Login> {
                                 color: Color.fromRGBO(196, 201, 210, 100),
                                 width: 2))),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    child: Text(
-                      'Forgot Password?',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w600),
-                    ),
-                  ),
+                  const SizedBox(
+                    height: 18,
+                  )
                 ],
               ),
               Center(
