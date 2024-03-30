@@ -258,14 +258,6 @@ class _DashboardEventState extends State<DashboardEvent> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  // Container(
-                                  //   decoration: BoxDecoration(
-                                  //       color: const Color(0xFF372E1D),
-                                  //       borderRadius:
-                                  //           BorderRadius.circular(10)),
-                                  //   width: 50,
-                                  //   height: 50,
-                                  // ),
                                   Container(
                                     decoration: BoxDecoration(
                                         color: Color(0xFF37271D),
